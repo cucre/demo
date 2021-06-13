@@ -45,14 +45,14 @@
 	<!-- end page container -->
 
 	<!-- ================== BEGIN BASE JS ================== -->
-	<script src="/assets/js/app.min.js"></script>
-	<script src="/assets/js/theme/material.min.js"></script>
-	<script src="/assets/plugins/select2/dist/js/select2.min.js"></script>
-	<script src="/assets/plugins/select2/dist/js/i18n/es.js"></script>
-	<script src="/assets/plugins/sweetalert/dist/sweetalert.min.js" type="text/javascript"></script>
+	<script src="{{ asset('/assets/js/app.min.js') }}"></script>
+	<script src="{{ asset('/assets/js/theme/material.min.js') }}"></script>
+	<script src="{{ asset('/assets/plugins/select2/dist/js/select2.min.js') }}"></script>
+	<script src="{{ asset('/assets/plugins/select2/dist/js/i18n/es.js') }}"></script>
+	<script src="{{ asset('/assets/plugins/sweetalert/dist/sweetalert.min.js') }}" type="text/javascript"></script>
 	<!-- Utilerias -->
-	<script src="/assets/js/utils/func.js"></script>
-	<script src="/assets/js/utils/plugins.js"></script>
+	<script src="{{ asset('/assets/js/utils/func.js') }}"></script>
+	<script src="{{ asset('/assets/js/utils/plugins.js') }}"></script>
 	<!-- ================== END BASE JS ================== -->
 	@stack('customjs')
 </body>

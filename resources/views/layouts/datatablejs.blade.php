@@ -1,23 +1,23 @@
-<script src="/assets/plugins/datatables.net/js/jquery.dataTables.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-autofill/js/dataTables.autofill.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-autofill-bs4/js/autofill.bootstrap4.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-colreorder/js/dataTables.colreorder.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-colreorder-bs4/js/colreorder.bootstrap4.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-keytable/js/dataTables.keytable.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-keytable-bs4/js/keytable.bootstrap4.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-rowreorder/js/dataTables.rowreorder.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-rowreorder-bs4/js/rowreorder.bootstrap4.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-select/js/dataTables.select.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-select-bs4/js/select.bootstrap4.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-buttons/js/buttons.flash.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-buttons/js/buttons.html5.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/datatables.net-buttons/js/buttons.print.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/pdfmake/build/pdfmake.min.js" type="text/javascript"></script>
-<script src="/assets/plugins/pdfmake/build/vfs_fonts.js" type="text/javascript"></script>
-<script src="/assets/plugins/jszip/dist/jszip.min.js" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net/js/jquery.dataTables.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-bs4/js/dataTables.bootstrap4.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-responsive/js/dataTables.responsive.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-responsive-bs4/js/responsive.bootstrap4.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-autofill/js/dataTables.autofill.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-autofill-bs4/js/autofill.bootstrap4.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-colreorder/js/dataTables.colreorder.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-colreorder-bs4/js/colreorder.bootstrap4.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-keytable/js/dataTables.keytable.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-keytable-bs4/js/keytable.bootstrap4.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-rowreorder/js/dataTables.rowreorder.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-rowreorder-bs4/js/rowreorder.bootstrap4.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-select/js/dataTables.select.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-select-bs4/js/select.bootstrap4.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-buttons/js/dataTables.buttons.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-buttons-bs4/js/buttons.bootstrap4.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-buttons/js/buttons.colVis.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-buttons/js/buttons.flash.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-buttons/js/buttons.html5.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/datatables.net-buttons/js/buttons.print.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/pdfmake/build/pdfmake.min.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/pdfmake/build/vfs_fonts.js') }}" type="text/javascript"></script>
+<script src="{{ asset('/assets/plugins/jszip/dist/jszip.min.js') }}" type="text/javascript"></script>

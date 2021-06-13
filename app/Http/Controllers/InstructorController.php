@@ -11,12 +11,12 @@ use DataTables;
 class InstructorController extends Controller {
     public function __construct() {
         $this->middleware('auth');
-        $this->middleware('instructores.create')->only(['create', 'store']);
-        $this->middleware('instructores.index')->only('index');
-        $this->middleware('instructores.edit')->only(['edit', 'update']);
-        $this->middleware('instructores.show')->only('show');
-        $this->middleware('instructores.delete')->only('destroy');
-        $this->middleware('instructores.restore')->only('restore');
+        $this->middleware('permission:instructores.create')->only(['create', 'store']);
+        $this->middleware('permission:instructores.index')->only('index');
+        $this->middleware('permission:instructores.edit')->only(['edit', 'update']);
+        $this->middleware('permission:instructores.show')->only('show');
+        $this->middleware('permission:instructores.delete')->only('destroy');
+        $this->middleware('permission:instructores.restore')->only('restore');
     }
 
     /**

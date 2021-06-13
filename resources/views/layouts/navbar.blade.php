@@ -2,8 +2,7 @@
 	<!-- begin navbar-header -->
 	<div class="navbar-header">
 		<a href="{{ route('home') }}" class="navbar-brand">
-			<div style="width: 35px; margin-top: 7px; margin-right: 10px; display: block;"><img src="/imgs/logo_administracion.jpg"></div>
-
+			<div style="width: 120px; margin-top: 7px; margin-right: 10px; display: block;"><img src="{{ asset('/imgs/colimaestado.png') }}" style="background-color: #393c3e;"></div>
 		</a>
 		<button type="button" class="navbar-toggle" data-click="sidebar-toggled">
 			<span class="icon-bar"></span>

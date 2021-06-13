@@ -11,12 +11,12 @@ use DataTables;
 class CorporationController extends Controller {
     public function __construct() {
         $this->middleware('auth');
-        $this->middleware('corporaciones.create')->only(['create', 'store']);
-        $this->middleware('corporaciones.index')->only('index');
-        $this->middleware('corporaciones.edit')->only(['edit', 'update']);
-        $this->middleware('corporaciones.show')->only('show');
-        $this->middleware('corporaciones.delete')->only('destroy');
-        $this->middleware('corporaciones.restore')->only('restore');
+        $this->middleware('permission:corporaciones.create')->only(['create', 'store']);
+        $this->middleware('permission:corporaciones.index')->only('index');
+        $this->middleware('permission:corporaciones.edit')->only(['edit', 'update']);
+        $this->middleware('permission:corporaciones.show')->only('show');
+        $this->middleware('permission:corporaciones.delete')->only('destroy');
+        $this->middleware('permission:corporaciones.restore')->only('restore');
     }
 
     /**

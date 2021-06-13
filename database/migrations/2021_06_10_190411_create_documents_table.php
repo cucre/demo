@@ -15,7 +15,7 @@ class CreateDocumentsTable extends Migration {
             $table->id();
             $table->string('name');
             $table->text('description')->nullable();
-            $table->text('path')->nullable()
+            $table->text('path')->nullable();
             $table->integer('created_by')->default(1);
             $table->timestamps();
             $table->softDeletes();

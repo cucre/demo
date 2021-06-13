@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
+<html lang="es" dir="ltr">
 <head>
     <meta charset="utf-8" />
     <title>Demo</title>
-    <link rel="SHORTCUT ICON" href="/imgs/favicon.ico" type="image/x-icon">
+    <link rel="SHORTCUT ICON" href="{{ asset('/imgs/favicon.ico') }}" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 user-scalable=no" name="viewport" />
 
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
@@ -32,6 +32,7 @@
         <div class="login login-v2" data-pageload-addclass="animated fadeIn">
             <!-- begin brand -->
             <div class="login-header">
+                <span style="text-align: center; display: block;"><img src="{{ asset('/imgs/logo.png') }}" class="center" style="background-color: white;"></span>
                 <div class="brand" style="text-align: center;">
                     <b> Cambiar contraseña </b>
                 </div>

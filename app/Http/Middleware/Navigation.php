@@ -21,6 +21,7 @@ class Navigation
                 'Registrar'      => 'create',
                 'Configuración'  => 'config',
                 'Catálogos'      => 'list',
+                'Control'        => 'control',
                 'Editar'         => 'edit',
                 'Codificación'   => 'codificacion',
                 'Administración' => 'admin',
@@ -66,7 +67,7 @@ class Navigation
             ];
         }
 
-        if(auth()->user()->hasAnyRole(['Administrador'])) {
+        if(auth()->user()->hasAnyRole(['Administrador', 'Coordinación académica'])) {
             $menu['Catálogos'] = [
                 'url'     => 'javascript:;',
                 'active'  => (strpos($url, str_replace(url('/'), '', '/list')) !== false) ? 'active' : '',
@@ -86,6 +87,55 @@ class Navigation
                 'icon'   => 'fas fa-ellipsis-h',
                 'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
             ];
+        }
+
+        if(auth()->user()->hasAnyRole(['Administrador', 'Instructor', 'Coordinación académica'])) {
+            $menu['Control'] = [
+                'url'     => 'javascript:;',
+                'active'  => (strpos($url, str_replace(url('/'), '', '/list')) !== false) ? 'active' : '',
+                'icon'    => 'fas fa-chalkboard-teacher',
+            ];
+
+            /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
+                $menu['Control']['submenu'][] =  [
+                    'name'   => 'Administrar cursos',
+                    'url'    => route('corporaciones.index'),
+                    'icon'   => 'fas fa-ellipsis-h',
+                    'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
+                ];
+
+                $menu['Control']['submenu'][] =  [
+                    'name'   => 'Registro de estudiantes',
+                    'url'    => route('corporaciones.index'),
+                    'icon'   => 'fas fa-ellipsis-h',
+                    'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
+                ];
+            //}
+
+            /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
+                $menu['Control']['submenu'][] =  [
+                    'name'   => 'Calificaciones por grupo',
+                    'url'    => route('corporaciones.index'),
+                    'icon'   => 'fas fa-ellipsis-h',
+                    'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
+                ];
+
+                $menu['Control']['submenu'][] =  [
+                    'name'   => 'Calificaciones por estudiante',
+                    'url'    => route('instructores.index'),
+                    'icon'   => 'fas fa-ellipsis-h',
+                    'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
+                ];
+            //}
+
+            /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
+                $menu['Control']['submenu'][] =  [
+                    'name'   => 'Control de estudiante',
+                    'url'    => route('instructores.index'),
+                    'icon'   => 'fas fa-ellipsis-h',
+                    'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
+                ];
+            //}
         }
 
         return $menu;
