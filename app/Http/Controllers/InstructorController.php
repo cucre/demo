@@ -36,12 +36,6 @@ class InstructorController extends Controller {
             ->editColumn('name', function($row) {
                 return $row->full_name;
             })
-            ->editColumn('birth_date', function($row) {
-                return $row->birth_date->format('d-m-Y');
-            })
-            ->editColumn('created_at', function($row) {
-                return $row->created_at->format('d-m-Y H:i');
-            })
             ->addColumn('accion', function($row) {
                 return \View::make('instructors.buttons')->with(compact('row'))->render();
             })

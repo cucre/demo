@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-header')
-    Gestor de corporaciones
+    Gestor de instructores
 @endsection
 
 @push('customcss')
@@ -16,10 +16,12 @@
             tabla = $('#tabla').DataTable({
                 processing: true,
                 serverSide: true,
-                ajax: '{!! route('corporaciones.data') !!}',
+                ajax: '{!! route('instructores.data') !!}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', 'orderable': false, 'searchable': false },
-                    { data: 'corporation', name: 'corporation' },
+                    { data: 'cuip', name: 'cuip' },
+                    { data: 'name', name: 'name' },
+                    { data: 'curp', name: 'curp' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'status', name: 'status' },
                     { data: 'accion', name: 'accion', className: 'text-center' },
@@ -59,15 +61,15 @@
         });
 
         $(document).on('click', ".eliminar", function(){
-            $("#corporation_name").text($(this).find('.corporation').val());
+            $("#instructor_name").text($(this).find('.instructor').val());
             $("#modal-form").prop('action',$(this).find('.action').val());
             $("#delModal").modal('show');
         });
 
         $(document).on('click', ".restaurar", function(){
-            $("#corporation_name_res").text($(this).find('.corporation').val());
+            $("#instructor_name_res").text($(this).find('.instructor').val());
             $("#modal-form-res").prop('action', $(this).find('.action').val());
-            $("#corporation_id").val($(this).find('.corporation_id').val());
+            $("#instructor_id").val($(this).find('.instructor_id').val());
             $("#resModal").modal('show');
         });
     </script>
@@ -83,7 +85,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="delModalLabel">¿Eliminar corporación?</h5>
+                    <h5 class="modal-title" id="delModalLabel">¿Eliminar instructor?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -93,7 +95,7 @@
                             <i class="fas fa-exclamation-circle fa-5x text-danger"></i>
                         </div>
                         <div class="col-lg-12 text-center">
-                            ¿Estás seguro que quieres eliminar la corporación <strong id="corporation_name"></strong>?
+                            ¿Estás seguro que quieres eliminar el instructor <strong id="instructor_name"></strong>?
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -112,7 +114,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="delModalLabel">¿Restaurar corporación?</h5>
+                    <h5 class="modal-title" id="delModalLabel">¿Restaurar instructor?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -122,7 +124,7 @@
                             <i class="fas fa-exclamation-circle fa-5x text-warning"></i>
                         </div>
                         <div class="col-lg-12 text-center">
-                            ¿Estás seguro que quieres restaurar la corporación <strong id="corporation_name_res"></strong>?
+                            ¿Estás seguro que quieres restaurar el instructor <strong id="instructor_name_res"></strong>?
                         </div>
                         <input type="hidden" id="corporation_id" name="corporation_id" value="">
                     </div>
@@ -138,7 +140,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">Corporaciones del sistema</h4>
             <div class="panel-heading-btn">
-                <a href="{{ route('corporaciones.create') }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar corporación</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                <a href="{{ route('instructores.create') }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar instructor</a>&nbsp;&nbsp;&nbsp;&nbsp;
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
@@ -150,10 +152,12 @@
                 <thead>
                     <tr>
                         <th style="width: 10%;">#</th>
-                        <th style="width: 50%;">Corporación</th>
-                        <th style="width: 10%;">Fecha de alta</th>
-                        <th style="width: 10%;">Estatus</th>
-                        <th style="width: 20%;">Acción</th>
+                        <th style="width: 10%;">CUIP</th>
+                        <th style="width: 25%;">Nombre del instructor</th>
+                        <th style="width: 10%;">CURP</th>
+                        <th style="width: 10%;">Baja</th>
+                        <th style="width: 10%;">Cursos</th>
+                        <th style="width: 15%;">Acción</th>
                     </tr>
                 </thead>
             </table>
