@@ -39,12 +39,6 @@ class Navigation
     private function menu() {
         $url = str_replace(url('/'), '', url()->current());
 
-        /*$menu['Principal'] = [
-            'url'     => route('home'),
-            'active'  => (strpos($url, str_replace(url('/'), '', '/estadisticas')) !== false) ? 'active' : '',
-            'icon'    => 'fas fa-money-bill-alt',
-        ];*/
-
         if(auth()->user()->hasAnyRole(['Administrador'])) {
             $menu['Configuración'] = [
                 'url'     => 'javascript:;',
