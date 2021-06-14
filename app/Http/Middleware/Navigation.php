@@ -38,6 +38,7 @@ class Navigation
 
     private function menu() {
         $url = str_replace(url('/'), '', url()->current());
+        $url = str_replace(url('/'), '', url()->current());
 
         if(auth()->user()->hasAnyRole(['Administrador'])) {
             $menu['Configuración'] = [
@@ -86,48 +87,58 @@ class Navigation
         if(auth()->user()->hasAnyRole(['Administrador', 'Instructor', 'Coordinación académica'])) {
             $menu['Control'] = [
                 'url'     => 'javascript:;',
-                'active'  => (strpos($url, str_replace(url('/'), '', '/list')) !== false) ? 'active' : '',
+                'active'  => (strpos($url, str_replace(url('/'), '', '/control')) !== false) ? 'active' : '',
                 'icon'    => 'fas fa-chalkboard-teacher',
             ];
 
             /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
                 $menu['Control']['submenu'][] =  [
                     'name'   => 'Administrar cursos',
-                    'url'    => route('corporaciones.index'),
+                    //'url'    => route('corporaciones.index'),
+                    'url'    => '',
                     'icon'   => 'fas fa-ellipsis-h',
-                    'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
+                    //'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
+                    'active' => ''
                 ];
 
                 $menu['Control']['submenu'][] =  [
                     'name'   => 'Registro de estudiantes',
-                    'url'    => route('corporaciones.index'),
+                    //'url'    => route('corporaciones.index'),
+                    'url'    => '',
                     'icon'   => 'fas fa-ellipsis-h',
-                    'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
+                    //'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
+                    'active' => ''
                 ];
             //}
 
             /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
                 $menu['Control']['submenu'][] =  [
                     'name'   => 'Calificaciones por grupo',
-                    'url'    => route('corporaciones.index'),
+                    //'url'    => route('corporaciones.index'),
+                    'url'    => '',
                     'icon'   => 'fas fa-ellipsis-h',
-                    'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
+                    //'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
+                    'active' => ''
                 ];
 
                 $menu['Control']['submenu'][] =  [
                     'name'   => 'Calificaciones por estudiante',
-                    'url'    => route('instructores.index'),
+                    //'url'    => route('instructores.index'),
+                    'url'    => '',
                     'icon'   => 'fas fa-ellipsis-h',
-                    'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
+                    //'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
+                    'active' => ''
                 ];
             //}
 
             /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
                 $menu['Control']['submenu'][] =  [
                     'name'   => 'Control de estudiante',
-                    'url'    => route('instructores.index'),
+                    //'url'    => route('instructores.index'),
+                    'url'    => '',
                     'icon'   => 'fas fa-ellipsis-h',
-                    'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
+                    //'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
+                    'active' => ''
                 ];
             //}
         }
