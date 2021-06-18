@@ -78,23 +78,23 @@ class InstructorController extends Controller {
     /**
      * Display the specified resource.
      *
-     * @param  \App\Instructor  $instructor
+     * @param  \App\Instructor  $instructore
      * @return \Illuminate\Http\Response
      */
-    public function show(Instructor $instructor)
-    {
+    public function show(Instructor $instructore) {
         //
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Instructor  $instructor
+     * @param  \App\Instructor  $instructore
      * @return \Illuminate\Http\Response
      */
-    public function edit(Instructor $instructor)
-    {
-        //
+    public function edit(Instructor $instructore) {
+        $action = 'edit';
+
+        return \View::make('instructors.form')->with(compact('action', 'instructore'));
     }
 
     /**
@@ -104,9 +104,10 @@ class InstructorController extends Controller {
      * @param  \App\Instructor  $instructor
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Instructor $instructor)
-    {
-        //
+    public function update(InstructorRequest $request, Instructor $instructore) {
+        $instructore->update($request->all());
+
+        return redirect()->route('instructores.index');
     }
 
     /**
@@ -115,8 +116,15 @@ class InstructorController extends Controller {
      * @param  \App\Instructor  $instructor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Instructor $instructor)
-    {
-        //
+    public function destroy(Instructor $instructore) {
+        $instructore->delete();
+
+        return redirect()->route('instructores.index');
+    }
+
+    public function restore(Request $request) {
+        Instructor::withTrashed()->findOrFail($request->instructor_id)->restore();
+
+        return redirect()->route('instructores.index');
     }
 }

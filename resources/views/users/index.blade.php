@@ -16,16 +16,18 @@
             tabla = $('#tabla').DataTable({
                 processing: true,
                 serverSide: true,
+                ordering: false,
                 ajax: '{!! route('usuarios.data') !!}',
                 columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex', 'orderable': false, 'searchable': false },
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false },
                     { data: 'name', name: 'name' },
                     { data: 'role', name: 'role' },
                     { data: 'email', name: 'email' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'status', name: 'status' },
-                    { data: 'accion', name: 'accion', className: 'text-center' },
+                    { data: 'accion', name: 'accion', className: 'text-center', searchable: false },
                 ],
+                order: [[ 1, 'asc' ]],
                 autoWidth: true,
                 language    : {
                     url     :'{{ asset('/js/datatables/language/spanish.json') }}'
@@ -134,7 +136,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">Usuarios del sistema</h4>
             <div class="panel-heading-btn">
-                <a href="{{ route('usuarios.create') }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar usuario</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                @can('usuarios.create')<a href="{{ route('usuarios.create') }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar usuario</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>

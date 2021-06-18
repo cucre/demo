@@ -4,15 +4,13 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UserRequest extends FormRequest
-{
+class UserRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -21,19 +19,17 @@ class UserRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
-
+    public function rules() {
         $this->email = mb_strtoupper($this->email);
-
         $ignore = '';
-        if($this->isMethod('put')){
+
+        if($this->isMethod('put')) {
             $ignore = ',' . $this->route('usuario')->email;
         }
 
         return [
-            'name'    => 'required',
-            'email'   => 'required|email|unique_unsensitive:users,email' . $ignore,
+            'name'    => 'required|max:255',
+            'email'   => 'required|max:255|email|unique_unsensitive:users,email' . $ignore,
             'rol'     => 'required',
         ];
     }
@@ -48,11 +44,11 @@ class UserRequest extends FormRequest
 
     public function attributes() {
         return [
-            'name'                  => 'nombre del usuario',
-            'email'                 => 'correo electrónico',
-            'password'              => 'contraseña',
-            'password_confirmation' => 'confirmación',
-            'rol'                   => 'rol',
+            'name'                  => 'Nombre',
+            'email'                 => 'Correo electrónico',
+            'password'              => 'Contraseña',
+            'password_confirmation' => 'Confirmación contraseña',
+            'rol'                   => 'Rol',
         ];
     }
 }

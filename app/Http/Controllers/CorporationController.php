@@ -81,8 +81,7 @@ class CorporationController extends Controller {
      * @param  \App\Corporations  $corporations
      * @return \Illuminate\Http\Response
      */
-    public function show(Corporation $corporation)
-    {
+    public function show(Corporation $corporation) {
         //
     }
 
