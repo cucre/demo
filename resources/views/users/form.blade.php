@@ -13,6 +13,12 @@
                 allowClear: true,
                 language: 'es'
             });
+
+            $("#myform").on("click", "#guardar", function(e) {
+                e.preventDefault();
+                $('#roles-select').attr("disabled", false);
+                $("#myform").submit();
+            });
         });
     </script>
 @endpush
@@ -28,7 +34,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <form action="{{ $action == 'create'?route('usuarios.store'):route('usuarios.update',$usuario->id) }}" method="post">
+            <form action="{{ $action == 'create'?route('usuarios.store'):route('usuarios.update',$usuario->id) }}" method="post" id="myform">
                 @csrf
                 @if($action == 'edit')
                     {!! method_field('PUT') !!}
@@ -36,20 +42,20 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label class="label-control">Nombre <span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" id="name" name="name" value="{{ old('name',$usuario->name) }}">
-                        {!! $errors->first('name', '<small class="help-block text-danger">:message</small>')!!}
+                        <input class="form-control" type="text" id="name" name="name" value="{{ old('name', $usuario->name ?? "") }}">
+                        {!! $errors->first('name', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
                     <div class="col-lg-4">
                         <label class="label-control">Apellido paterno</label>
-                        <input class="form-control" type="text" id="paterno" name="paterno" value="{{ old('paterno',$usuario->paterno) }}">
-                        {!! $errors->first('paterno', '<small class="help-block text-danger">:message</small>')!!}
+                        <input class="form-control" type="text" id="paterno" name="paterno" value="{{ old('paterno', $usuario->paterno ?? "") }}">
+                        {!! $errors->first('paterno', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
                     <div class="col-lg-4">
                         <label class="label-control">Apellido materno</label>
-                        <input class="form-control" type="text" id="materno" name="materno" value="{{ old('materno',$usuario->materno) }}">
-                        {!! $errors->first('materno', '<small class="help-block text-danger">:message</small>')!!}
+                        <input class="form-control" type="text" id="materno" name="materno" value="{{ old('materno',$usuario->materno ?? "") }}">
+                        {!! $errors->first('materno', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
 
@@ -57,27 +63,27 @@
                 <div class="row">
                     <div class="col-lg-4">
                         <label class="label-control">Correo electrónico <span class="text-danger">*</span></label>
-                        <input class="form-control" type="text" id="email" name="email" value="{{ old('email',$usuario->email) }}">
-                        {!! $errors->first('email', '<small class="help-block text-danger">:message</small>')!!}
+                        <input class="form-control" type="text" id="email" name="email" value="{{ old('email', $usuario->email ?? "") }}">
+                        {!! $errors->first('email', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
                     <div class="col-lg-4">
-                        <label class="label-control">Roles <span class="text-danger">*</span></label>
-                        <select id="roles-select" class="form-control select2" name="rol">
+                        <label class="label-control">Rol <span class="text-danger">*</span></label>
+                        <select id="roles-select" class="form-control select2" name="rol" @if($action == 'edit') @if($usuario->id == 1) disabled @endif @endif>
                             <option value=""></option>
                             @foreach($roles as $rol)
-                                <option value="{{ $rol->name }}"@if(old('rol',is_null($usuario->roles->first())?null:$usuario->roles->first()->name) == $rol->name) selected @endif>
-                                    {{ $rol->description }}
+                                <option value="{{ $rol->name ?? "" }}" @if(old('rol', is_null($usuario->roles->first()) ? null : $usuario->roles->first()->name) == $rol->name) selected @endif>
+                                    {{ $rol->description ?? "" }}
                                 </option>
                             @endforeach
                         </select>
-                        {!! $errors->first('rol', '<small class="help-block text-danger">:message</small>')!!}
+                        {!! $errors->first('rol', '<small class="help-block text-danger">:message</small>') !!}
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-6">
-                        <button class="btn btn-primary">
-                            <i class="fas fa-check-circle"></i> {{ $action == 'create'?'Registrar':'Actualizar' }}
+                        <button class="btn btn-primary" id="guardar">
+                            <i class="fas fa-check-circle"></i> {{ $action == 'create' ? 'Registrar' : 'Actualizar' }}
                         </button>
                         <a href="{{ route('usuarios.index') }}" class="btn btn-warning">
                             <i class="fas fa-arrow-alt-circle-right fa-rotate-180"></i> Regresar

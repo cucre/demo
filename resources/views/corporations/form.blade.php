@@ -25,7 +25,7 @@
                     <div class="col-lg-4">
                         <label class="label-control">Corporación <span class="text-danger">*</span></label>
                         <input class="form-control" type="text" id="corporation" name="corporation" value="{{ old('corporation', $corporacione->corporation ?? "") }}">
-                        {!! $errors->first('corporation', '<small class="help-block text-danger">:message</small>')!!}
+                        {!! $errors->first('corporation', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
                 </div>

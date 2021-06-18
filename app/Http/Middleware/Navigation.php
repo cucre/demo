@@ -5,8 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Auth;
 
-class Navigation
-{
+class Navigation {
     /**
      * Handle an incoming request.
      *
@@ -16,8 +15,7 @@ class Navigation
      */
     public function handle($request, Closure $next) {
         if(Auth::check()) {
-
-            \Session::put('Breadcrumbs',collect([
+            \Session::put('Breadcrumbs', collect([
                 'Registrar'      => 'create',
                 'Configuración'  => 'config',
                 'Catálogos'      => 'list',
@@ -29,15 +27,12 @@ class Navigation
             ]));
 
             \Session::put('Navigation', $this->menu());
-
         }
 
         return $next($request);
-
     }
 
     private function menu() {
-        $url = str_replace(url('/'), '', url()->current());
         $url = str_replace(url('/'), '', url()->current());
 
         if(auth()->user()->hasAnyRole(['Administrador'])) {
@@ -51,14 +46,14 @@ class Navigation
                 'name'   => 'Usuarios',
                 'url'    => route('usuarios.index'),
                 'icon'   => 'fas fa-users',
-                'active' => (strpos($url,str_replace(url('/'), '', '/usuarios')) !== false) ? 'active' : ''
+                'active' => (strpos($url, str_replace(url('/'), '', '/usuarios')) !== false) ? 'active' : ''
             ];
 
             $menu['Configuración']['submenu'][] =  [
                 'name'   => 'Permisos',
                 'url'    => route('permisos.index'),
                 'icon'   => 'fas fa-id-card',
-                'active' => (strpos($url, str_replace(url('/'),'','/permisos')) !== false) ? 'active' : ''
+                'active' => (strpos($url, str_replace(url('/'), '', '/permisos')) !== false) ? 'active' : ''
             ];
         }
 

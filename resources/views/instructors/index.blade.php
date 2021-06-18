@@ -12,25 +12,22 @@
     @include('layouts.datatablejs')
     <script>
         let tabla;
+
         $(function() {
             tabla = $('#tabla').DataTable({
                 processing: true,
                 serverSide: true,
+                ordering: false,
                 ajax: '{!! route('instructores.data') !!}',
                 columns: [
-                    { data: 'DT_RowIndex', name: 'DT_RowIndex', 'orderable': false, 'searchable': false },
+                    { data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false },
                     { data: 'cuip', name: 'cuip' },
                     { data: 'name', name: 'name' },
                     { data: 'curp', name: 'curp' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'status', name: 'status' },
-                    { data: 'accion', name: 'accion', className: 'text-center' },
+                    { data: 'accion', name: 'accion', className: 'text-center', searchable: false },
                 ],
-                columnDefs: [ {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0
-                } ],
                 order: [[ 1, 'asc' ]],
                 autoWidth: true,
                 language    : {
@@ -62,7 +59,7 @@
 
         $(document).on('click', ".eliminar", function(){
             $("#instructor_name").text($(this).find('.instructor').val());
-            $("#modal-form").prop('action',$(this).find('.action').val());
+            $("#modal-form").prop('action', $(this).find('.action').val());
             $("#delModal").modal('show');
         });
 
@@ -140,7 +137,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">Corporaciones del sistema</h4>
             <div class="panel-heading-btn">
-                <a href="{{ route('instructores.create') }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar instructor</a>&nbsp;&nbsp;&nbsp;&nbsp;
+                @can('instructores.create')<a href="{{ route('instructores.create') }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar instructor</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>

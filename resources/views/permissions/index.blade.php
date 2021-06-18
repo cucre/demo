@@ -15,14 +15,10 @@
             tabla = $('#tabla').DataTable({
                 processing: true,
                 autoWidth: true,
+                ordering: false,
                 language    : {
                     url     :'{{ asset('/js/datatables/language/spanish.json') }}'
                 },
-                columnDefs: [ {
-                    searchable: false,
-                    orderable: false,
-                    targets: 0
-                } ],
                 order: [[ 1, 'asc' ]],
                 dom: 'lBfrtip',
                 buttons: [
@@ -75,8 +71,8 @@
             <table width="100%" class="table table-striped" id="tabla">
                 <thead>
                     <tr>
-                        <th style="width: 1%"></th>
-                        <th style="width: 15%;">Role</th>
+                        <th style="width: 1%">#</th>
+                        <th style="width: 15%;">Rol</th>
                         <th style="width: 15%;">Permisos Asignados</th>
                         <th style="width: 15%;">Fecha de alta</th>
                         <th style="width: 25%;">Acción</th>
