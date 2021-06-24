@@ -49,7 +49,21 @@ class RolesPermissionsSeeder extends Seeder {
         $user = User::findOrFail(1);
         $user->assignRole('Administrador');
 
-        $role = Role::firstOrCreate(['name' => 'Instructor'], ['description' => 'Instructor']);
-        $role = Role::firstOrCreate(['name' => 'Coordinación académica'], ['description' => 'Coordinación académica']);
+        $role_instructor = Role::firstOrCreate(['name' => 'Instructor'], ['description' => 'Instructor']);
+        $role_academic_coordination = Role::firstOrCreate(['name' => 'Coordinación académica'], ['description' => 'Coordinación académica']);
+
+        $role_academic_coordination->givePermissionTo('instructores.index');
+        $role_academic_coordination->givePermissionTo('instructores.create');
+        $role_academic_coordination->givePermissionTo('instructores.edit');
+        $role_academic_coordination->givePermissionTo('instructores.show');
+        $role_academic_coordination->givePermissionTo('instructores.delete');
+        $role_academic_coordination->givePermissionTo('instructores.restore');
+
+        $role_academic_coordination->givePermissionTo('corporaciones.index');
+        $role_academic_coordination->givePermissionTo('corporaciones.create');
+        $role_academic_coordination->givePermissionTo('corporaciones.edit');
+        $role_academic_coordination->givePermissionTo('corporaciones.show');
+        $role_academic_coordination->givePermissionTo('corporaciones.delete');
+        $role_academic_coordination->givePermissionTo('corporaciones.restore');
     }
 }

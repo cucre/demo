@@ -101,7 +101,7 @@ class CorporationController extends Controller {
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Corporations  $corporations
+     * @param  \App\Corporations  $corporacione
      * @return \Illuminate\Http\Response
      */
     public function update(CorporationRequest $request, Corporation $corporacione) {
@@ -113,7 +113,7 @@ class CorporationController extends Controller {
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Corporation  $corporation
+     * @param  \App\Corporation  $corporacione
      * @return \Illuminate\Http\Response
      */
     public function destroy(Corporation $corporacione) {
