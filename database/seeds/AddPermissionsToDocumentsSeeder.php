@@ -25,14 +25,6 @@ class AddPermissionsToDocumentsSeeder extends Seeder {
         $role->givePermissionTo('documentos.delete');
         $role->givePermissionTo('documentos.restore');
 
-        $role_instructor = Role::findByName('Instructor');
-
-        $role_instructor->givePermissionTo('documentos.index');
-        $role_instructor->givePermissionTo('documentos.create');
-        $role_instructor->givePermissionTo('documentos.edit');
-        $role_instructor->givePermissionTo('documentos.delete');
-        $role_instructor->givePermissionTo('documentos.restore');
-
         $role_academic_coordination = Role::findByName('Coordinación académica');
 
         $role_academic_coordination->givePermissionTo('documentos.index');

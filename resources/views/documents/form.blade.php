@@ -4,6 +4,14 @@
     Gestor de documentos
 @endsection
 
+@push('customjs')
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $(`#myform`).find(`input[name='name']`).classMaxCharacters(255);
+        });
+    </script>
+@endpush
+
 @push('customcss')
     <style type="text/css">
         textarea {
@@ -25,7 +33,7 @@
             </div>
         </div>
         <div class="panel-body">
-            <form action="{{ $action == 'create' ? route('documentos.store') : route('documentos.update', $documento->id) }}" method="post" enctype="multipart/form-data">
+            <form action="{{ $action == 'create' ? route('documentos.store') : route('documentos.update', $documento->id) }}" method="post" enctype="multipart/form-data" id="myform">
                 <input class="form-control" type="hidden" id="instructor_id" name="instructor_id" value="{{ old('instructor_id', $instructor_id ?? "") }}">
                 @csrf
                 @if($action == 'edit')

@@ -47,3 +47,8 @@ Route::get('/list/instructores/documentos/data/{id}', 'DocumentController@data')
 Route::post('/list/instructores/documentos/delete', 'DocumentController@delete')->name('documentos.delete');
 Route::post('/list/instructores/documentos/restore', 'DocumentController@restore')->name('documentos.restore');
 Route::resource('/list/instructores/documentos', 'DocumentController', ['only' => ['store', 'update']]);
+
+//Materias
+Route::get('/list/materias/data', 'SubjectController@data')->name('materias.data');
+Route::post('/list/materias/restore', 'SubjectController@restore')->name('materias.restore');
+Route::resource('/list/materias', 'SubjectController', ['except' => ['show']]);

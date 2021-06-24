@@ -84,6 +84,15 @@ class Navigation {
                     'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
                 ];
             }
+
+            if(auth()->user()->hasPermissionTo('materias.index')) {
+                $menu['Catálogos']['submenu'][] =  [
+                    'name'   => 'Materias',
+                    'url'    => route('materias.index'),
+                    'icon'   => 'fas fa-ellipsis-h',
+                    'active' => (strpos($url, str_replace(url('/'), '', '/materias')) !== false) ? 'active' : ''
+                ];
+            }
         }
 
         if(auth()->user()->hasAnyRole(['Administrador', 'Instructor', 'Coordinación académica'])) {
