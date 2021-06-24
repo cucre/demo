@@ -1,7 +1,10 @@
 @extends('layouts.master')
 
 @section('page-header')
-    Gestor de instructores
+    <div class="row">
+            <a href="{{ route('instructores.index') }}" style="font-size: 14px;"><em class="fas fa-arrow-left"></em> Regresar </a>
+    </div>
+    Gestor de documentos
 @endsection
 
 @push('customcss')
@@ -18,12 +21,12 @@
                 processing: true,
                 serverSide: true,
                 ordering: false,
-                ajax: '{!! route('instructores.data') !!}',
+                ajax: '{!! route('documentos.data', $instructor_id) !!}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false },
-                    { data: 'cuip', name: 'cuip' },
                     { data: 'name', name: 'name' },
-                    { data: 'curp', name: 'curp' },
+                    { data: 'description', name: 'description' },
+                    { data: 'path', name: 'path'},
                     { data: 'created_at', name: 'created_at' },
                     { data: 'status', name: 'status' },
                     { data: 'accion', name: 'accion', className: 'text-center', searchable: false },
@@ -58,15 +61,18 @@
         });
 
         $(document).on('click', ".eliminar", function(){
-            $("#instructor_name").text($(this).find('.instructor').val());
+            $("#document_name").text($(this).find('.name').val());
+            $("#instructor_id").val($(this).find('.instructor_id').val());
+            $("#document_id").val($(this).find('.document_id').val());
             $("#modal-form").prop('action', $(this).find('.action').val());
             $("#delModal").modal('show');
         });
 
         $(document).on('click', ".restaurar", function(){
-            $("#instructor_name_res").text($(this).find('.instructor').val());
+            $("#document_name_res").text($(this).find('.name').val());
+            $("#instructor_id_res").val($(this).find('.instructor_id_res').val());
+            $("#document_id_res").val($(this).find('.document_id_res').val());
             $("#modal-form-res").prop('action', $(this).find('.action').val());
-            $("#instructor_id").val($(this).find('.instructor_id').val());
             $("#resModal").modal('show');
         });
     </script>
@@ -78,11 +84,10 @@
     <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModal" aria-hidden="true">
         <form id="modal-form" method="post">
             @csrf
-            {!! method_field('DELETE') !!}
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="delModalLabel">¿Eliminar instructor?</h5>
+                    <h5 class="modal-title" id="delModalLabel">¿Eliminar documento?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -92,8 +97,10 @@
                             <i class="fas fa-exclamation-circle fa-5x text-danger"></i>
                         </div>
                         <div class="col-lg-12 text-center">
-                            ¿Estás seguro que quieres eliminar el instructor <strong id="instructor_name"></strong>?
+                            ¿Estás seguro que quieres eliminar el documento <strong id="document_name"></strong>?
                         </div>
+                        <input type="hidden" id="instructor_id" name="instructor_id" value="">
+                        <input type="hidden" id="document_id" name="document_id" value="">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -111,7 +118,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="delModalLabel">¿Restaurar instructor?</h5>
+                    <h5 class="modal-title" id="delModalLabel">¿Restaurar documento?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -121,9 +128,10 @@
                             <i class="fas fa-exclamation-circle fa-5x text-warning"></i>
                         </div>
                         <div class="col-lg-12 text-center">
-                            ¿Estás seguro que quieres restaurar el instructor <strong id="instructor_name_res"></strong>?
+                            ¿Estás seguro que quieres restaurar el documento <strong id="document_name_res"></strong>?
                         </div>
-                        <input type="hidden" id="instructor_id" name="instructor_id" value="">
+                        <input type="hidden" id="instructor_id_res" name="instructor_id_res" value="">
+                        <input type="hidden" id="document_id_res" name="document_id_res" value="">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -135,9 +143,9 @@
     </div>
     <div class="panel panel-inverse">
         <div class="panel-heading">
-            <h4 class="panel-title">Instructores del sistema</h4>
+            <h4 class="panel-title">Documentos del sistema</h4>
             <div class="panel-heading-btn">
-                @can('instructores.create')<a href="{{ route('instructores.create') }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar instructor</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
+                @can('documentos.create')<a href="{{ route('documentos.create', $instructor_id) }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar documento</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
@@ -149,12 +157,12 @@
                 <thead>
                     <tr>
                         <th style="width: 10%;">#</th>
-                        <th style="width: 10%;">CUIP</th>
-                        <th style="width: 25%;">Nombre del instructor</th>
-                        <th style="width: 10%;">CURP</th>
+                        <th style="width: 20%;">Nombre</th>
+                        <th style="width: 20%;">Descripción</th>
+                        <th style="width: 10%;">Documento</th>
                         <th style="width: 10%;">Fecha de alta</th>
                         <th style="width: 10%;">Estatus</th>
-                        <th style="width: 15%;">Acción</th>
+                        <th style="width: 20%;">Acción</th>
                     </tr>
                 </thead>
             </table>

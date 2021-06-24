@@ -11,8 +11,7 @@ class RoleRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
-    {
+    public function authorize() {
         return true;
     }
 
@@ -21,8 +20,7 @@ class RoleRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
-    {
+    public function rules() {
         return [
             'name' => 'required',
             'description' => 'required',
@@ -30,8 +28,7 @@ class RoleRequest extends FormRequest
         ];
     }
 
-    public function messages()
-    {
+    public function messages() {
         return [
             'name.required' => 'El campo Nombre del Rol es obligatorio.',
             'description.required' => 'El campo Descripción del Rol es obligatorio.',

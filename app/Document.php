@@ -16,10 +16,10 @@ class Document extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'path', 'created_by',
+        'name', 'description', 'path', 'instructor_id', 'created_by',
     ];
 
     public function instructor() {
-        return $this->belongsTo(Instructor::class);
+        return $this->belongsTo('App\Instructor', 'instructor_id', 'id');
     }
 }

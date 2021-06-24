@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class CorporationRequest extends FormRequest {
+class DocumentRequest extends FormRequest {
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -20,23 +20,24 @@ class CorporationRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        $this->corporation = mb_strtoupper($this->corporation);
-        $ignore = '';
+        $path_image_required = 'required|';
 
         if($this->isMethod('put')) {
-            $ignore = ','. $this->route('corporacione')->corporation;
+            $path_image_required = '';
         }
 
         return [
-            'corporation' => 'required|max:255|unique_unsensitive:corporations,corporation'. $ignore,
+            'name' => 'required|max:255',
+            'path' => $path_image_required .'file|mimes:pdf|max:5120',
         ];
     }
 
     public function messages() {
         return [
-            'required'                  => 'El campo :attribute es obligatorio.',
-            'max'                       => 'El campo :attribute no debe ser mayor a :max caracteres.',
-            'unique_unsensitive'        => 'El campo :attribute ya existe.',
+            'required'             => 'El campo :attribute es obligatorio.',
+            'max'                  => 'El campo :attribute no debe ser mayor a :max caracteres.',
+            'file'                 => 'El campo :attribute debe ser un archivo.',
+            'mimes'                => 'El campo :attribute debe ser un archivo con formato: :values.',
         ];
     }
 
@@ -47,7 +48,8 @@ class CorporationRequest extends FormRequest {
      */
     public function attributes() {
         return [
-            'corporation'    => 'Corporación',
+            'name'    => 'Nombre del documento',
+            'path'    => 'Documento',
         ];
     }
 }

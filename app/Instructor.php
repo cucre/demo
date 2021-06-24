@@ -18,7 +18,7 @@ class Instructor extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'paterno', 'materno', 'cuip', 'curp', 'birth_date', 'address', 'telephone', 'email', 'specialty', 'certifications', 'observations', 'blood_type', 'medical_note', 'document_id', 'created_by',
+        'name', 'paterno', 'materno', 'cuip', 'curp', 'birth_date', 'address', 'telephone', 'email', 'specialty', 'certifications', 'observations', 'blood_type', 'medical_note', 'created_by',
     ];
 
     public function setEmailAttribute($email) {
@@ -30,6 +30,6 @@ class Instructor extends Model {
     }
 
     public function documents() {
-        return $this->hasMany(Document::class);
+        return $this->hasMany('App\Document');
     }
 }

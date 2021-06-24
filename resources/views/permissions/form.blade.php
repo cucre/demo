@@ -31,7 +31,7 @@
         <button class="btn btn-primary">
             <i class="fas fa-check-circle"></i>Registrar
         </button>
-        <a href="{{ route('usuarios.index') }}" class="btn btn-warning">
+        <a href="{{ route('permisos.index') }}" class="btn btn-warning">
             <i class="fas fa-arrow-alt-circle-right fa-rotate-180"></i> Regresar
         </a>
     </div>

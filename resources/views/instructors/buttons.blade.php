@@ -11,6 +11,11 @@
 		<i class="fas fa-trash"></i> Eliminar
 	</button>
 @endcan
+@can('documentos.index')
+	<a href="{{ route('documentos.index', $row->id) }}" class="btn btn-blue btn-sm">
+		<i class="fas fa-file"></i> Documentos
+	</a>
+@endcan
 @else
 @can('instructores.restore')
 	<button href="#" class="btn btn-warning btn-sm restaurar">
@@ -21,3 +26,8 @@
 	</button>
 @endcan
 @endif
+@can('instructores.show')
+	<a href="{{ route('instructores.show', $row->id) }}" class="btn btn-orange btn-sm">
+		<i class="fas fa-eye"></i> Ver
+	</a>
+@endcan

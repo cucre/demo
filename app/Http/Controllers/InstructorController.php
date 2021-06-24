@@ -36,6 +36,9 @@ class InstructorController extends Controller {
             ->editColumn('name', function($row) {
                 return $row->full_name;
             })
+            ->editColumn('created_at', function($row) {
+                return $row->created_at->format('d-m-Y H:i');
+            })
             ->addColumn('accion', function($row) {
                 return \View::make('instructors.buttons')->with(compact('row'))->render();
             })
@@ -82,7 +85,10 @@ class InstructorController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function show(Instructor $instructore) {
-        //
+        $instructore = $instructore::with(['documents'])->get()->first();
+        $action = 'show';
+
+        return \View::make('instructors.form')->with(compact('action', 'instructore'));
     }
 
     /**

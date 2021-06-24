@@ -24,7 +24,7 @@ class InstructorRequest extends FormRequest {
         $ignore = '';
 
         if($this->isMethod('put')) {
-            $ignore = ','. $this->route('instructor')->email;
+            $ignore = ','. $this->route('instructore')->email;
         }
 
         return [
@@ -39,6 +39,7 @@ class InstructorRequest extends FormRequest {
             'birth_date'    => 'required',
             'email'         => 'required|email|unique_unsensitive:instructors,email'. $ignore,
             'telephone'     => 'required|integer',
+            'medical_note'  => 'required',
         ];
     }
 
@@ -68,6 +69,7 @@ class InstructorRequest extends FormRequest {
             'birth_date'       => 'Fecha de nacimiento',
             'telephone'        => 'Teléfono/celular',
             'email'            => 'Correo electrónico',
+            'medical_note'     => 'Nota médica',
         ];
     }
 }
