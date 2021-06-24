@@ -24,7 +24,7 @@ class UserRequest extends FormRequest {
         $ignore = '';
 
         if($this->isMethod('put')) {
-            $ignore = ',' . $this->route('usuario')->email;
+            $ignore = ','. $this->route('usuario')->email;
         }
 
         return [

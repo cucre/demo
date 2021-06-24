@@ -38,3 +38,12 @@ Route::resource('/list/corporaciones', 'CorporationController', ['except' => ['s
 Route::get('/list/instructores/data', 'InstructorController@data')->name('instructores.data');
 Route::post('/list/instructores/restore', 'InstructorController@restore')->name('instructores.restore');
 Route::resource('/list/instructores', 'InstructorController');
+
+//Instructores - Documentos
+Route::get('/list/instructores/documentos/index/{id}', 'DocumentController@index')->name('documentos.index');
+Route::get('/list/instructores/documentos/create/{id}', 'DocumentController@create')->name('documentos.create');
+Route::get('/list/instructores/documentos/{documento}/edit/{id}', 'DocumentController@edit')->name('documentos.edit');
+Route::get('/list/instructores/documentos/data/{id}', 'DocumentController@data')->name('documentos.data');
+Route::post('/list/instructores/documentos/delete', 'DocumentController@delete')->name('documentos.delete');
+Route::post('/list/instructores/documentos/restore', 'DocumentController@restore')->name('documentos.restore');
+Route::resource('/list/instructores/documentos', 'DocumentController', ['only' => ['store', 'update']]);

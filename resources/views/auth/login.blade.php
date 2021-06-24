@@ -7,6 +7,7 @@
     </title>
     <link rel="SHORTCUT ICON" href="{{ asset('/imgs/favicon.ico') }}" type="image/x-icon">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0 user-scalable=no" name="viewport" />
+    {!! htmlScriptTagJsApi(['lang' => 'es']) !!}
     
     <!-- ================== BEGIN BASE CSS STYLE ================== -->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700" rel="stylesheet" />
@@ -57,10 +58,14 @@
                             </div>
                         </div>
                     </div>
+                    {{-- <div class="form-group m-b-20">
+                        {!! htmlFormSnippet() !!}
+                    </div> --}}
                     <div class="login-buttons">
                         <button type="submit" class="btn btn-primary btn-block btn-lg">Ingresar</button>
                     </div>
                     {!! $errors->first('email', '<br><div class="alert alert-danger text-center">:message</div>') !!}
+                    {{-- {!! $errors->first('g-recaptcha-response', '<br><div class="alert alert-danger text-center">:message</div>') !!} --}}
                     <div class="m-t-20 text-center">
                         <a href="{{ route('password.request') }}">Restablecer contraseña</a>
                     </div>

@@ -104,8 +104,8 @@ class CorporationController extends Controller {
      * @param  \App\Corporations  $corporations
      * @return \Illuminate\Http\Response
      */
-    public function update(CorporationRequest $request, Corporation $corporation) {
-        $corporation->update($request->all());
+    public function update(CorporationRequest $request, Corporation $corporacione) {
+        $corporacione->update($request->all());
 
         return redirect()->route('corporaciones.index');
     }

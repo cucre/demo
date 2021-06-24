@@ -58,8 +58,10 @@ class LoginController extends Controller {
         $request->validate([
             $this->username() => 'required|string',
             'password' => 'required|string',
+           /* 'g-recaptcha-response' => 'recaptcha',*/
         ],[
-            'required' => 'Las credenciales son incorrectas'
+            'required'  => 'Las credenciales son incorrectas',
+            /*'recaptcha' => 'Error, captcha no ingresado correctamente',*/
         ]);
     }
 }
