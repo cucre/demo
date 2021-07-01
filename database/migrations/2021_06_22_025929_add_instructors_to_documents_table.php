@@ -12,7 +12,7 @@ class AddInstructorsToDocumentsTable extends Migration {
      */
     public function up() {
         Schema::table('documents', function (Blueprint $table) {
-            $table->integer('instructor_id')->unsigned()->nullable();
+            $table->bigInteger('instructor_id')->unsigned()->nullable();
             $table->foreign('instructor_id')->references('id')->on('instructors');
         });
     }
@@ -24,7 +24,7 @@ class AddInstructorsToDocumentsTable extends Migration {
      */
     public function down() {
         Schema::table('documents', function (Blueprint $table) {
-            $table->dropColumn('instructor_id');
+            $table->dropForeign('documents_instructor_id_foreign');
         });
     }
 }
