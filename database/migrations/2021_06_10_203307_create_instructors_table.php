@@ -27,8 +27,6 @@ class CreateInstructorsTable extends Migration {
             $table->text('observations')->nullable();
             $table->string('blood_type')->nullable();
             $table->text('medical_note')->nullable();
-            $table->integer('document_id')->unsigned()->nullable();
-            $table->foreign('document_id')->references('id')->on('documents');
             $table->integer('created_by')->default(1);
             $table->timestamps();
             $table->softDeletes();
