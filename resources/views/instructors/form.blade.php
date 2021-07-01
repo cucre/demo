@@ -43,6 +43,7 @@
                 startDate: "-70y",
                 endDate: "-18y",
                 orientation: "bottom",
+                autoclose: true,
             });
 
             $(`#myform`).find(`input[name='name']`).classMaxCharacters(255);

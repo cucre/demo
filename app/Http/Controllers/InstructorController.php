@@ -122,14 +122,30 @@ class InstructorController extends Controller {
      * @param  \App\Instructor  $instructor
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Instructor $instructore) {
+    public function destroy(Request $request, Instructor $instructore) {
+        $messages = [
+            'type_leave.required'      => 'El campo Tipo de baja es obligatorio.',
+            'type_leave.integer'       => 'El campo Tipo de baja debe ser numérico.',
+            'date_leave.required'      => 'El campo Fecha de baja es obligatorio.',
+            'reason_leave.required'    => 'El campo Motivo de baja es obligatorio.',
+        ];
+
+        $request->validate([
+            'type_leave'      => 'required|integer',
+            'date_leave'      => 'required',
+            'reason_leave'    => 'required',
+        ], $messages);
+
+        $instructore->update($request->all());
         $instructore->delete();
 
         return redirect()->route('instructores.index');
     }
 
     public function restore(Request $request) {
-        Instructor::withTrashed()->findOrFail($request->instructor_id)->restore();
+        $instructore = Instructor::withTrashed()->findOrFail($request->instructor_id);
+        $instructore->update(['type_leave' => null, 'date_leave' => null, 'reason_leave' => null]);
+        $instructore->restore();
 
         return redirect()->route('instructores.index');
     }
