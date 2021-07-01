@@ -20,7 +20,7 @@
 @section('content')
     <div class="panel panel-inverse">
         <div class="panel-body">
-            <img src="/imgs/logo_principal.jpg" class="center">
+            <img src="{{ asset('/imgs/logo_principal.jpg') }}" class="center">
         </div>
     </div>
 @endsection
