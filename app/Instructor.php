@@ -18,7 +18,7 @@ class Instructor extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'paterno', 'materno', 'cuip', 'curp', 'birth_date', 'address', 'telephone', 'email', 'specialty', 'certifications', 'observations', 'blood_type', 'medical_note', 'created_by',
+        'name', 'paterno', 'materno', 'cuip', 'curp', 'birth_date', 'address', 'telephone', 'email', 'specialty', 'certifications', 'observations', 'blood_type', 'medical_note', 'type_leave', 'date_leave', 'reason_leave', 'created_by',
     ];
 
     public function setEmailAttribute($email) {

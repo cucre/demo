@@ -6,10 +6,46 @@
 
 @push('customcss')
     @include('layouts.datatablecss')
+    <link href="{{ asset('/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+
+    <style type="text/css">
+        textarea {
+            resize: none;
+            padding: 5px;
+        }
+    </style>
 @endpush
 
 @push('customjs')
     @include('layouts.datatablejs')
+    <script src="{{ asset('/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.datepicker').datepicker({
+                language: "es",
+                clearBtn: true,
+                multidate: false,
+                format: "dd/mm/yyyy",
+                startDate: "-70y",
+                orientation: "bottom",
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $(".select2").select2({
+                placeholder: "Selecciona",
+                allowClear: true,
+                language: 'es'
+            });
+
+            $(".readonly").keydown(function(e){
+                e.preventDefault();
+            });
+
+            $(`#modal-form`).find(`input[name='date_leave']`).classMaxCharacters(10).classOnlyIntegers('/');
+        });
+    </script>
     <script>
         let tabla;
 
@@ -76,10 +112,10 @@
 @section('content')
     <!-- Modal Delete -->
     <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModal" aria-hidden="true">
-        <form id="modal-form" method="post">
+        <form id="modal-form" method="post" class="form-horizontal">
             @csrf
             {!! method_field('DELETE') !!}
-            <div class="modal-dialog" role="document">
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
                     <h5 class="modal-title" id="delModalLabel">¿Eliminar instructor?</h5>
@@ -88,11 +124,37 @@
                     </button>
                     </div>
                     <div class="modal-body">
-                        <div class="col-lg-12 text-center">
-                            <i class="fas fa-exclamation-circle fa-5x text-danger"></i>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <i class="fas fa-exclamation-circle fa-5x text-danger"></i>
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    ¿Estás seguro que quieres eliminar el instructor <strong id="instructor_name"></strong>?
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-12 text-center">
-                            ¿Estás seguro que quieres eliminar el instructor <strong id="instructor_name"></strong>?
+                        <div class="row">
+                            <div class="col-lg-5 offset-1">
+                                <label class="label-control">Tipo de baja <span style="color: red;">*</span></label>
+                                <select class="form-control select2" id="type_leave" name="type_leave" style="text-align: left;" required>
+                                    <option value=""></option>
+                                    <option value="1">Baja como instructor</option>
+                                </select>
+                                <br>
+                            </div>
+                            <div class="col-lg-5">
+                                <label class="label-control">Fecha de baja <span style="color: red;">*</span></label>
+                                <input class="form-control datepicker readonly" type="text" id="date_leave" name="date_leave" value="" required>
+                                <br>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-lg-10 offset-1">
+                                <label class="label-control">Motivo de baja <span style="color: red;">*</span></label>
+                                <textarea class="form-control" id="reason_leave" name="reason_leave" rows="3" required></textarea>
+                                <br>
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
@@ -134,6 +196,9 @@
         </form>
     </div>
     <div class="panel panel-inverse">
+        {!! $errors->first('type_leave', '<small class="help-block text-danger">:message</small><br/>') !!}
+        {!! $errors->first('date_leave', '<small class="help-block text-danger">:message</small><br/>') !!}
+        {!! $errors->first('reason_leave', '<small class="help-block text-danger">:message</small><br/>') !!}
         <div class="panel-heading">
             <h4 class="panel-title">Instructores del sistema</h4>
             <div class="panel-heading-btn">
