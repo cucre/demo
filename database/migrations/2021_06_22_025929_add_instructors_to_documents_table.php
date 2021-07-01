@@ -12,7 +12,7 @@ class AddInstructorsToDocumentsTable extends Migration {
      */
     public function up() {
         Schema::table('documents', function (Blueprint $table) {
-            $table->bigIncrements('instructor_id')->unsigned()->nullable();
+            $table->bigInteger('instructor_id')->unsigned()->nullable();
             $table->foreign('instructor_id')->references('id')->on('instructors');
         });
     }
