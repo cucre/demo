@@ -18,4 +18,8 @@ class Subject extends Model {
     protected $fillable = [
         'subject', 'hours', 'created_by',
     ];
+
+    public function courses() {
+        return $this->belongsToMany(Course::class, 'subject_course');
+    }
 }
