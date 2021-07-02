@@ -52,3 +52,9 @@ Route::resource('/list/instructores/documentos', 'DocumentController', ['only' =
 Route::get('/list/materias/data', 'SubjectController@data')->name('materias.data');
 Route::post('/list/materias/restore', 'SubjectController@restore')->name('materias.restore');
 Route::resource('/list/materias', 'SubjectController', ['except' => ['show']]);
+
+///************* Control *************///////
+//Cursos
+Route::get('/control/cursos/data', 'CourseController@data')->name('cursos.data');
+Route::post('/control/cursos/restore', 'CourseController@restore')->name('cursos.restore');
+Route::resource('/control/cursos', 'CourseController', ['except' => ['show']]);

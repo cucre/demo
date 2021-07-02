@@ -102,16 +102,16 @@ class Navigation {
                 'icon'    => 'fas fa-chalkboard-teacher',
             ];
 
-            /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
+            if(auth()->user()->hasPermissionTo('cursos.index')) {
                 $menu['Control']['submenu'][] =  [
                     'name'   => 'Administrar cursos',
-                    //'url'    => route('corporaciones.index'),
-                    'url'    => '',
+                    'url'    => route('cursos.index'),
                     'icon'   => 'fas fa-ellipsis-h',
-                    //'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
-                    'active' => ''
+                    'active' => (strpos($url, str_replace(url('/'), '', '/cursos')) !== false) ? 'active' : ''
                 ];
+            }
 
+            /*if(auth()->user()->hasPermissionTo('cursos.index')) {*/
                 $menu['Control']['submenu'][] =  [
                     'name'   => 'Registro de estudiantes',
                     //'url'    => route('corporaciones.index'),

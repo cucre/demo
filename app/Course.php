@@ -5,7 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Document extends Model {
+class Course extends Model {
     use SoftDeletes;
 
     protected $dates = ['deleted_at'];
@@ -16,10 +16,10 @@ class Document extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'path', 'instructor_id', 'created_by',
+        'name', 'classification', 'hours', 'start_date', 'end_date', 'without_evaluation', 'created_by',
     ];
 
-    public function instructor() {
-        return $this->belongsTo(Instructor::class, 'instructor_id', 'id');
+    public function subjects() {
+        return $this->belongsToMany(Subject::class, 'subject_course');
     }
 }
