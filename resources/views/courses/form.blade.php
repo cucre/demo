@@ -76,13 +76,13 @@
                     {!! method_field('PUT') !!}
                 @endif
                 <div class="row">
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <label class="label-control">Nombre del curso <span class="text-danger">*</span></label>
                         <input class="form-control" type="text" id="name" name="name" value="{{ old('name', $curso->name ?? "") }}">
                         {!! $errors->first('name', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <label class="label-control">Clasificación <span class="text-danger">*</span></label>
                         <select id="classification" class="form-control select2" name="classification">
                             <option value=""></option>
@@ -91,27 +91,13 @@
                         {!! $errors->first('classification', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <label class="label-control">Total de horas <span class="text-danger">*</span></label>
                         <input class="form-control" type="text" id="hours" name="hours" value="{{ old('hours', $curso->hours ?? "") }}">
                         {!! $errors->first('hours', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-lg-4">
-                        <label class="label-control">Fecha inicio <span class="text-danger">*</span></label>
-                        <input class="form-control readonly" type="text" id="start_date" name="start_date" value="{{ old('start_date', $curso->start_date ?? "") }}" readonly>
-                        {!! $errors->first('start_date', '<small class="help-block text-danger">:message</small>') !!}
-                        <br>
-                    </div>
-                    <div class="col-lg-4">
-                        <label class="label-control">Fecha fin <span class="text-danger">*</span></label>
-                        <input class="form-control readonly" type="text" id="end_date" name="end_date" value="{{ old('end_date', $curso->end_date ?? "") }}" readonly>
-                        {!! $errors->first('end_date', '<small class="help-block text-danger">:message</small>') !!}
-                        <br>
-                    </div>
-                    <div class="col-lg-4">
+                    <div class="col-lg-3">
                         <label class="label-control">&nbsp;</label>
                         <div class="form-check">
                             <input class="form-check-input" type="checkbox" name="without_evaluation" id="without_evaluation" @if(old('without_evaluation', $curso->without_evaluation ? true : false)) checked @endif>
@@ -124,7 +110,19 @@
                     </div>
                 </div>
                 <div class="row">
-                    <div class="col-lg-8">
+                    <div class="col-lg-3">
+                        <label class="label-control">Fecha inicio <span class="text-danger">*</span></label>
+                        <input class="form-control readonly" type="text" id="start_date" name="start_date" value="{{ old('start_date', $curso->start_date ?? "") }}" readonly>
+                        {!! $errors->first('start_date', '<small class="help-block text-danger">:message</small>') !!}
+                        <br>
+                    </div>
+                    <div class="col-lg-3">
+                        <label class="label-control">Fecha fin <span class="text-danger">*</span></label>
+                        <input class="form-control readonly" type="text" id="end_date" name="end_date" value="{{ old('end_date', $curso->end_date ?? "") }}" readonly>
+                        {!! $errors->first('end_date', '<small class="help-block text-danger">:message</small>') !!}
+                        <br>
+                    </div>
+                    <div class="col-lg-6">
                         <label class="label-control">Materias <span class="text-danger">*</span></label>
                         <select class="form-control select2" name="subjects[]" multiple>
                             @foreach($subjects as $subject)
