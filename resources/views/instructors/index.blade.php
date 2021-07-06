@@ -35,6 +35,7 @@
 
             $(".select2").select2({
                 placeholder: "Selecciona",
+                width: "100%",
                 allowClear: true,
                 language: 'es'
             });
@@ -137,7 +138,7 @@
                         <div class="row">
                             <div class="col-lg-5 offset-1">
                                 <label class="label-control">Tipo de baja <span style="color: red;">*</span></label>
-                                <select class="form-control select2" id="type_leave" name="type_leave" style="text-align: left;" required>
+                                <select class="form-select select2" id="type_leave" name="type_leave" style="text-align: left;" required>
                                     <option value=""></option>
                                     <option value="1">Baja como instructor</option>
                                 </select>
@@ -210,19 +211,21 @@
             </div>
         </div>
         <div class="panel-body">
-            <table width="100%" class="table table-striped" id="tabla">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">#</th>
-                        <th style="width: 10%;">CUIP</th>
-                        <th style="width: 25%;">Nombre del instructor</th>
-                        <th style="width: 10%;">CURP</th>
-                        <th style="width: 10%;">Fecha de alta</th>
-                        <th style="width: 10%;">Estatus</th>
-                        <th style="width: 15%;">Acción</th>
-                    </tr>
-                </thead>
-            </table>
+            <div class="table-responsive">
+                <table width="100%" class="table table-striped" id="tabla">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">#</th>
+                            <th style="width: 10%;">CUIP</th>
+                            <th style="width: 25%;">Nombre del instructor</th>
+                            <th style="width: 10%;">CURP</th>
+                            <th style="width: 10%;">Fecha de alta</th>
+                            <th style="width: 10%;">Estatus</th>
+                            <th style="width: 15%;">Acción</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

@@ -68,50 +68,52 @@
             </div>
         </div>
         <div class="panel-body">
-            <table width="100%" class="table table-striped" id="tabla">
-                <thead>
-                    <tr>
-                        <th style="width: 1%">#</th>
-                        <th style="width: 15%;">Rol</th>
-                        <th style="width: 15%;">Permisos Asignados</th>
-                        <th style="width: 15%;">Fecha de alta</th>
-                        <th style="width: 25%;">Acción</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    @foreach ($roles as $role)
+            <div class="table-responsive">
+                <table width="100%" class="table table-striped" id="tabla">
+                    <thead>
                         <tr>
-                            <td></td>
-                            <td>{{ $role->name }}</td>
-                            <td>
-                                <ol>
-                                @foreach ($role->permissions as $permission)
-                                  <li> {{ $permission->description }} </li>
-                                @endforeach
-                                </ol>
-                            </td>
-                            <td>{{ $role->created_at->format('d-m-Y') }}</td>
-                            <td>
-                                @can('roles.edit')
-                                    <a href="{{ route('permisos.edit', $role->id) }}" class="btn btn-green btn-sm">
-                                        <i class="fas fa-pencil-alt"></i> Editar
-                                    </a>
-                                @endcan
-                                @can('roles.delete')
-                                    <form action="{{ route('permisos.destroy', $role->id) }}" 
-                                        style="display: inline;" method="POST">
-                                        {!! method_field('DELETE') !!}
-                                        <input type="hidden" name="_token" value="{{ csrf_token() }}">
-                                        <button title="Eliminar" class="btn btn-sm btn-danger">
-                                            Eliminar
-                                        </button>
-                                    </form>
-                                @endcan                               
-                            </td>
+                            <th style="width: 1%">#</th>
+                            <th style="width: 15%;">Rol</th>
+                            <th style="width: 15%;">Permisos Asignados</th>
+                            <th style="width: 15%;">Fecha de alta</th>
+                            <th style="width: 25%;">Acción</th>
                         </tr>
-                    @endforeach
-                </tbody>
-            </table>
+                    </thead>
+                    <tbody>
+                        @foreach ($roles as $role)
+                            <tr>
+                                <td></td>
+                                <td>{{ $role->name }}</td>
+                                <td>
+                                    <ol>
+                                    @foreach ($role->permissions as $permission)
+                                      <li> {{ $permission->description }} </li>
+                                    @endforeach
+                                    </ol>
+                                </td>
+                                <td>{{ $role->created_at->format('d-m-Y') }}</td>
+                                <td>
+                                    @can('roles.edit')
+                                        <a href="{{ route('permisos.edit', $role->id) }}" class="btn btn-green btn-sm">
+                                            <i class="fas fa-pencil-alt"></i> Editar
+                                        </a>
+                                    @endcan
+                                    @can('roles.delete')
+                                        <form action="{{ route('permisos.destroy', $role->id) }}"
+                                            style="display: inline;" method="POST">
+                                            {!! method_field('DELETE') !!}
+                                            <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                            <button title="Eliminar" class="btn btn-sm btn-danger">
+                                                Eliminar
+                                            </button>
+                                        </form>
+                                    @endcan
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

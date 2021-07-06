@@ -10,6 +10,7 @@
         $(document).ready(function(){
             $(".select2").select2({
                 placeholder: "Selecciona",
+                width: "100%",
                 allowClear: true,
                 language: 'es'
             });
@@ -69,7 +70,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label class="label-control">Rol <span class="text-danger">*</span></label>
-                        <select id="roles-select" class="form-control select2" name="rol" @if($action == 'edit') @if($usuario->id == 1) disabled @endif @endif>
+                        <select id="roles-select" class="form-select select2" name="rol" @if($action == 'edit') @if($usuario->id == 1) disabled @endif @endif>
                             <option value=""></option>
                             @foreach($roles as $rol)
                                 <option value="{{ $rol->name ?? "" }}" @if(old('rol', is_null($usuario->roles->first()) ? null : $usuario->roles->first()->name) == $rol->name) selected @endif>

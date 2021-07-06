@@ -30,7 +30,7 @@ class CourseController extends Controller {
     }
 
     public function data() {
-        $courses = Course::orderBy('name')->withTrashed();
+        $courses = Course::with(['instructors'])->orderBy('name')->withTrashed();
 
         $datatable = DataTables::eloquent($courses)
             ->addIndexColumn()
@@ -43,13 +43,16 @@ class CourseController extends Controller {
             ->editColumn('created_at', function($row) {
                 return $row->created_at->format('d-m-Y H:i');
             })
+            ->addColumn('instructors', function($row) {
+                return \View::make('courses.instructors')->with(compact('row'))->render();
+            })
             ->addColumn('accion', function($row) {
                 return \View::make('courses.buttons')->with(compact('row'))->render();
             })
             ->addColumn('status', function($row) {
                 return is_null($row->deleted_at) ? 'Activo' : 'Inactivo desde '. $row->deleted_at->format('d-m-Y H:i');
             })
-            ->rawColumns(['status', 'accion'])
+            ->rawColumns(['instructors', 'status', 'accion'])
             ->toJson(true);
 
         return $datatable;
@@ -78,7 +81,6 @@ class CourseController extends Controller {
             'created_by' => auth()->user()->id,
             'without_evaluation' => $request->has('without_evaluation') ? true : false,
         ]);
-        dd($request->all());
 
         $course = Course::create($request->all());
         $course->subjects()->sync($request->subjects);
@@ -143,5 +145,12 @@ class CourseController extends Controller {
         Course::withTrashed()->findOrFail($request->course_id)->restore();
 
         return redirect()->route('cursos.index');
+    }
+
+    public function instructors(Course $curso) {
+        $action = 'create';
+        $subjects = Subject::all();
+
+        return \View::make('courses.form')->with(compact('action', 'curso', 'subjects'));
     }
 }

@@ -26,8 +26,8 @@ class DocumentController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($instructor_id = null) {
-        return \View::make('documents.index')->with(compact('instructor_id'));
+    public function index(Instructor $instructor) {
+        return \View::make('documents.index')->with(compact('instructor'));
     }
 
     public function data($instructor_id = null) {
@@ -58,10 +58,10 @@ class DocumentController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Document $documento, $instructor_id = null) {
+    public function create(Document $documento, Instructor $instructor) {
         $action = 'create';
 
-        return \View::make('documents.form')->with(compact('action', 'documento', 'instructor_id'));
+        return \View::make('documents.form')->with(compact('action', 'documento', 'instructor'));
     }
 
     /**
@@ -105,10 +105,10 @@ class DocumentController extends Controller {
      * @param  \App\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function edit(Document $documento, $instructor_id = null) {
+    public function edit(Document $documento, Instructor $instructor) {
         $action = 'edit';
 
-        return \View::make('documents.form')->with(compact('action', 'documento', 'instructor_id'));
+        return \View::make('documents.form')->with(compact('action', 'documento', 'instructor'));
     }
 
     /**

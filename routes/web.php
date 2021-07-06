@@ -40,9 +40,9 @@ Route::post('/list/instructores/restore', 'InstructorController@restore')->name(
 Route::resource('/list/instructores', 'InstructorController');
 
 //Instructores - Documentos
-Route::get('/list/instructores/documentos/index/{id}', 'DocumentController@index')->name('documentos.index');
-Route::get('/list/instructores/documentos/create/{id}', 'DocumentController@create')->name('documentos.create');
-Route::get('/list/instructores/documentos/{documento}/edit/{id}', 'DocumentController@edit')->name('documentos.edit');
+Route::get('/list/instructores/documentos/index/{instructor}', 'DocumentController@index')->name('documentos.index');
+Route::get('/list/instructores/documentos/create/{instructor}', 'DocumentController@create')->name('documentos.create');
+Route::get('/list/instructores/documentos/{documento}/edit/{instructor}', 'DocumentController@edit')->name('documentos.edit');
 Route::get('/list/instructores/documentos/data/{id}', 'DocumentController@data')->name('documentos.data');
 Route::post('/list/instructores/documentos/delete', 'DocumentController@delete')->name('documentos.delete');
 Route::post('/list/instructores/documentos/restore', 'DocumentController@restore')->name('documentos.restore');
@@ -58,3 +58,12 @@ Route::resource('/list/materias', 'SubjectController', ['except' => ['show']]);
 Route::get('/control/cursos/data', 'CourseController@data')->name('cursos.data');
 Route::post('/control/cursos/restore', 'CourseController@restore')->name('cursos.restore');
 Route::resource('/control/cursos', 'CourseController', ['except' => ['show']]);
+
+//Instructores - Cursos
+Route::get('/control/cursos/instructores/index/{curso}', 'InstructorCourseController@index')->name('instructores_cursos.index');
+Route::get('/control/cursos/instructores/create/{curso}', 'InstructorCourseController@create')->name('instructores_cursos.create');
+Route::get('/control/cursos/instructores/{instructor_curso}/edit/{curso}', 'InstructorCourseController@edit')->name('instructores_cursos.edit');
+Route::get('/control/cursos/instructores/data/{id}', 'InstructorCourseController@data')->name('instructores_cursos.data');
+Route::post('/control/cursos/instructores/delete', 'InstructorCourseController@delete')->name('instructores_cursos.delete');
+Route::post('/control/cursos/instructores/restore', 'InstructorCourseController@restore')->name('instructores_cursos.restore');
+Route::resource('/control/cursos/instructores', 'InstructorCourseController', ['as' => 'instructores_cursos'], ['only' => ['store', 'update']]);

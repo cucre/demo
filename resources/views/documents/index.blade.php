@@ -2,9 +2,9 @@
 
 @section('page-header')
     <div class="row">
-            <a href="{{ route('instructores.index') }}" style="font-size: 14px;"><em class="fas fa-arrow-left"></em> Regresar </a>
+        <a href="{{ route('instructores.index') }}" style="font-size: 14px;"><em class="fas fa-arrow-left"></em> Regresar </a>
     </div>
-    Gestor de documentos
+    <p style="font-size: 18px;">Nombre del Instructor: <strong style="color: blue;">{{ $instructor->full_name }}</strong>.</p>
 @endsection
 
 @push('customcss')
@@ -21,7 +21,7 @@
                 processing: true,
                 serverSide: true,
                 ordering: false,
-                ajax: '{!! route('documentos.data', $instructor_id) !!}',
+                ajax: '{!! route('documentos.data', $instructor->id) !!}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false },
                     { data: 'name', name: 'name' },
@@ -145,7 +145,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">Documentos del sistema</h4>
             <div class="panel-heading-btn">
-                @can('documentos.create')<a href="{{ route('documentos.create', $instructor_id) }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar documento</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
+                @can('documentos.create')<a href="{{ route('documentos.create', $instructor->id) }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar documento</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
@@ -153,19 +153,21 @@
             </div>
         </div>
         <div class="panel-body">
-            <table width="100%" class="table table-striped" id="tabla">
-                <thead>
-                    <tr>
-                        <th style="width: 10%;">#</th>
-                        <th style="width: 20%;">Nombre</th>
-                        <th style="width: 20%;">Descripción</th>
-                        <th style="width: 10%;">Documento</th>
-                        <th style="width: 10%;">Fecha de alta</th>
-                        <th style="width: 10%;">Estatus</th>
-                        <th style="width: 20%;">Acción</th>
-                    </tr>
-                </thead>
-            </table>
+            <div class="table-responsive">
+                <table width="100%" class="table table-striped" id="tabla">
+                    <thead>
+                        <tr>
+                            <th style="width: 10%;">#</th>
+                            <th style="width: 20%;">Nombre</th>
+                            <th style="width: 20%;">Descripción</th>
+                            <th style="width: 10%;">Documento</th>
+                            <th style="width: 10%;">Fecha de alta</th>
+                            <th style="width: 10%;">Estatus</th>
+                            <th style="width: 20%;">Acción</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 @endsection

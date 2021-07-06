@@ -10,6 +10,7 @@
         $(document).ready(function(){
             $(".select2").select2({
                 placeholder: "Selecciona",
+                width: "100%",
                 allowClear: true,
                 language: 'es'
             });
