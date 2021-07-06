@@ -22,6 +22,7 @@
         $(document).ready(function() {
             $(".select2").select2({
                 placeholder: "Selecciona",
+                width: "100%",
                 allowClear: true,
                 language: 'es'
             });
@@ -84,7 +85,7 @@
                     </div>
                     <div class="col-lg-3">
                         <label class="label-control">Clasificación <span class="text-danger">*</span></label>
-                        <select id="classification" class="form-control select2" name="classification">
+                        <select id="classification" class="form-select select2" name="classification">
                             <option value=""></option>
                             <option value="Formación inicial" {{ old('classification', $curso->classification ?? "") == "Formación inicial" ? 'selected' : '' }}>Formación inicial</option>
                         </select>
@@ -124,10 +125,10 @@
                     </div>
                     <div class="col-lg-6">
                         <label class="label-control">Materias <span class="text-danger">*</span></label>
-                        <select class="form-control select2" name="subjects[]" multiple>
+                        <select class="form-select select2" name="subjects[]" multiple>
                             @foreach($subjects as $subject)
                                 <option value="{{ $subject->id }}" @if(in_array($subject->id, old('subjects', $curso->subjects->pluck('id')->toArray()))) selected @endif>
-                                    {{ $subject->subject ?? "" }}
+                                    {{ ($subject->subject ?? "") .' - '. ($subject->hours ?? "")}}
                                 </option>
                             @endforeach
                         </select>

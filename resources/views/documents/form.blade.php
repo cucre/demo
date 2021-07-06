@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-header')
-    Gestor de documentos
+    <p style="font-size: 18px;">Nombre del Instructor: <strong style="color: blue;">{{ $instructor->full_name }}</strong>.</p>
 @endsection
 
 @push('customjs')
@@ -34,7 +34,7 @@
         </div>
         <div class="panel-body">
             <form action="{{ $action == 'create' ? route('documentos.store') : route('documentos.update', $documento->id) }}" method="post" enctype="multipart/form-data" id="myform">
-                <input class="form-control" type="hidden" id="instructor_id" name="instructor_id" value="{{ old('instructor_id', $instructor_id ?? "") }}">
+                <input class="form-control" type="hidden" id="instructor_id" name="instructor_id" value="{{ old('instructor_id', $instructor->id ?? "") }}">
                 @csrf
                 @if($action == 'edit')
                     {!! method_field('PUT') !!}
@@ -73,7 +73,7 @@
                         <button class="btn btn-primary">
                             <i class="fas fa-check-circle"></i> {{ $action == 'create' ? 'Registrar' : 'Actualizar' }}
                         </button>
-                        <a href="{{ route('documentos.index', $instructor_id) }}" class="btn btn-warning">
+                        <a href="{{ route('documentos.index', $instructor->id) }}" class="btn btn-warning">
                             <i class="fas fa-arrow-alt-circle-right fa-rotate-180"></i> Regresar
                         </a>
                     </div>

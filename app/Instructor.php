@@ -32,4 +32,8 @@ class Instructor extends Model {
     public function documents() {
         return $this->hasMany(Document::class);
     }
+
+    public function courses() {
+        return $this->belongsToMany(Course::class, 'instructor_courses');
+    }
 }

@@ -15,7 +15,7 @@
     </div>
     <div class="col-lg-7">
         <label class="label-control">Permisos <span class="text-danger">*</span></label>
-        <select class="form-control select2" name="permissions[]" multiple>
+        <select class="form-select select2" name="permissions[]" multiple>
             @foreach($permissions as $permission)
                 <option value="{{ $permission->id }}" @if(in_array($permission->id, old('permissions', $role->permissions->pluck('id')->toArray()))) selected @endif>
                     {{ $permission->description ?? "" }}
