@@ -35,7 +35,7 @@
 
             <!-- begin brand -->
             <div class="login-header">
-                <span style="text-align: center; display: block;"><img src="{{ asset('/imgs/logo.png') }}" class="center" style="background-color: white;"></span>
+                <span style="text-align: center; display: block;"><img src="{{ asset('/imgs/logo.png') }}" class="center rounded mx-auto d-block" style="background-color: white;"></span>
                 <div class="brand" style="text-align: center;">
                     <b> Inicio de sesión </b>
                 </div>
