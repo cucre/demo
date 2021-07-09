@@ -40,9 +40,9 @@ Route::post('/list/instructores/restore', 'InstructorController@restore')->name(
 Route::resource('/list/instructores', 'InstructorController');
 
 //Instructores - Documentos
-Route::get('/list/instructores/documentos/index/{instructor}', 'DocumentController@index')->name('documentos.index');
-Route::get('/list/instructores/documentos/create/{instructor}', 'DocumentController@create')->name('documentos.create');
-Route::get('/list/instructores/documentos/{documento}/edit/{instructor}', 'DocumentController@edit')->name('documentos.edit');
+Route::get('/list/instructores/documentos/index/{id}', 'DocumentController@index')->name('documentos.index');
+Route::get('/list/instructores/documentos/create/{id}', 'DocumentController@create')->name('documentos.create');
+Route::get('/list/instructores/documentos/{documento}/edit/{id}', 'DocumentController@edit')->name('documentos.edit');
 Route::get('/list/instructores/documentos/data/{id}', 'DocumentController@data')->name('documentos.data');
 Route::post('/list/instructores/documentos/delete', 'DocumentController@delete')->name('documentos.delete');
 Route::post('/list/instructores/documentos/restore', 'DocumentController@restore')->name('documentos.restore');
@@ -67,3 +67,17 @@ Route::get('/control/cursos/instructores/data/{id}', 'InstructorCourseController
 Route::post('/control/cursos/instructores/delete', 'InstructorCourseController@delete')->name('instructores_cursos.delete');
 Route::post('/control/cursos/instructores/restore', 'InstructorCourseController@restore')->name('instructores_cursos.restore');
 Route::resource('/control/cursos/instructores', 'InstructorCourseController', ['as' => 'instructores_cursos'], ['only' => ['store', 'update']]);
+
+//Estudiantes
+Route::get('/control/estudiantes/data', 'StudentController@data')->name('estudiantes.data');
+Route::post('/control/estudiantes/restore', 'StudentController@restore')->name('estudiantes.restore');
+Route::resource('/control/estudiantes', 'StudentController');
+
+//Estudiantes - Documentos
+Route::get('/control/estudiantes/documentos/index/{id}', 'DocumentController@index')->name('documentos_estudiantes.index');
+Route::get('/control/estudiantes/documentos/create/{id}', 'DocumentController@create')->name('documentos_estudiantes.create');
+Route::get('/control/estudiantes/documentos/{documento}/edit/{id}', 'DocumentController@edit')->name('documentos_estudiantes.edit');
+Route::get('/control/estudiantes/documentos/data/{id}', 'DocumentController@data')->name('documentos_estudiantes.data');
+Route::post('/control/estudiantes/documentos/delete', 'DocumentController@delete')->name('documentos_estudiantes.delete');
+Route::post('/control/estudiantes/documentos/restore', 'DocumentController@restore')->name('documentos_estudiantes.restore');
+Route::resource('/control/estudiantes/documentos', 'DocumentController', ['as' => 'documentos_estudiantes'], ['only' => ['store', 'update']]);

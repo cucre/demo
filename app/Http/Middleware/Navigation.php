@@ -111,46 +111,44 @@ class Navigation {
                 ];
             }
 
-            /*if(auth()->user()->hasPermissionTo('cursos.index')) {*/
+            if(auth()->user()->hasPermissionTo('estudiantes.index')) {
                 $menu['Control']['submenu'][] =  [
                     'name'   => 'Registro de estudiantes',
-                    //'url'    => route('corporaciones.index'),
-                    'url'    => '',
+                    'url'    => route('estudiantes.index'),
                     'icon'   => 'fas fa-ellipsis-h',
-                    //'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
-                    'active' => ''
+                    'active' => (strpos($url, str_replace(url('/'), '', '/estudiantes')) !== false) ? 'active' : ''
                 ];
-            //}
+            }
 
             /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
-                $menu['Control']['submenu'][] =  [
+               /* $menu['Control']['submenu'][] =  [
                     'name'   => 'Calificaciones por grupo',
                     //'url'    => route('corporaciones.index'),
                     'url'    => '',
                     'icon'   => 'fas fa-ellipsis-h',
                     //'active' => (strpos($url, str_replace(url('/'), '', '/corporaciones')) !== false) ? 'active' : ''
                     'active' => ''
-                ];
+                ];*/
 
-                $menu['Control']['submenu'][] =  [
+                /*$menu['Control']['submenu'][] =  [
                     'name'   => 'Calificaciones por estudiante',
                     //'url'    => route('instructores.index'),
                     'url'    => '',
                     'icon'   => 'fas fa-ellipsis-h',
                     //'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
                     'active' => ''
-                ];
+                ];*/
             //}
 
             /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
-                $menu['Control']['submenu'][] =  [
+                /*$menu['Control']['submenu'][] =  [
                     'name'   => 'Control de estudiante',
                     //'url'    => route('instructores.index'),
                     'url'    => '',
                     'icon'   => 'fas fa-ellipsis-h',
                     //'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
                     'active' => ''
-                ];
+                ];*/
             //}
         }
 

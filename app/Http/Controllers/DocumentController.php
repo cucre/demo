@@ -26,14 +26,15 @@ class DocumentController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function index(Instructor $instructor) {
-        return \View::make('documents.index')->with(compact('instructor'));
+    public function index($id = null) {
+        return \View::make('documents.index')->with(compact('id'));
     }
 
-    public function data($instructor_id = null) {
-        $document = Document::with(['instructor'])->orderBy('name')->where('instructor_id', $instructor_id)->withTrashed()->get();
+    public function data($id = null) {
+        /*$document = Document::with(['instructor'])->orderBy('name')->where('instructor_id', $instructor_id)->withTrashed()->get();*/
+        $documents = Document::with(['instructor', 'student'])->where('instructor_id', $id)->orWhere('student_id', $id)->orderBy('name')->withTrashed()->get();
 
-        $datatable = DataTables::of($document)
+        $datatable = DataTables::of($documents)
             ->addIndexColumn()
             ->editColumn('created_at', function($row) {
                 return $row->created_at->format('d-m-Y H:i');
@@ -58,10 +59,10 @@ class DocumentController extends Controller {
      *
      * @return \Illuminate\Http\Response
      */
-    public function create(Document $documento, Instructor $instructor) {
+    public function create(Document $documento, $id = null) {
         $action = 'create';
 
-        return \View::make('documents.form')->with(compact('action', 'documento', 'instructor'));
+        return \View::make('documents.form')->with(compact('action', 'documento', 'id'));
     }
 
     /**
@@ -86,7 +87,7 @@ class DocumentController extends Controller {
 
         Document::create($requestData);
 
-        return redirect()->route('documentos.index', $request->instructor_id);
+        return redirect()->route($request->ruta_redirect, $request->id);
     }
 
     /**
@@ -105,10 +106,10 @@ class DocumentController extends Controller {
      * @param  \App\Document  $document
      * @return \Illuminate\Http\Response
      */
-    public function edit(Document $documento, Instructor $instructor) {
+    public function edit(Document $documento, $id = null) {
         $action = 'edit';
 
-        return \View::make('documents.form')->with(compact('action', 'documento', 'instructor'));
+        return \View::make('documents.form')->with(compact('action', 'documento', 'id'));
     }
 
     /**
@@ -139,7 +140,7 @@ class DocumentController extends Controller {
 
         $documento->update($requestData);
 
-        return redirect()->route('documentos.index', $request->instructor_id);
+        return redirect()->route($request->ruta_redirect, $request->id);
     }
 
     /**
@@ -151,12 +152,12 @@ class DocumentController extends Controller {
     public function delete(Request $request) {
         Document::withTrashed()->findOrFail($request->document_id)->delete();
 
-        return redirect()->route('documentos.index', $request->instructor_id);
+        return redirect()->route($request->ruta_redirect, $request->id);
     }
 
     public function restore(Request $request) {
         Document::withTrashed()->findOrFail($request->document_id_res)->restore();
 
-        return redirect()->route('documentos.index', $request->instructor_id_res);
+        return redirect()->route($request->ruta_redirect_res, $request->id_res);
     }
 }

@@ -1,29 +1,52 @@
 @extends('layouts.master')
 
 @section('page-header')
-    @if(Request::segment(1) == 'list')
-        @php($ruta = route('documentos.data', $id))
-        @php($ruta_redirect = 'documentos.index')
-        <div class="row">
-            <a href="{{ route('instructores.index') }}" style="font-size: 14px;"><em class="fas fa-arrow-left"></em> Regresar </a>
-        </div>
-
-    @else
-        @php($ruta = route('documentos_estudiantes.data', $id))
-        @php($ruta_redirect = 'documentos_estudiantes.index')
-        <div class="row">
-            <a href="{{ route('estudiantes.index') }}" style="font-size: 14px;"><em class="fas fa-arrow-left"></em> Regresar </a>
-        </div>
-    @endif
-    Gestor de documentos
+    Gestor de estudiantes
 @endsection
 
 @push('customcss')
     @include('layouts.datatablecss')
+    <link href="{{ asset('/assets/plugins/bootstrap-datepicker/dist/css/bootstrap-datepicker.min.css') }}" rel="stylesheet" />
+
+    <style type="text/css">
+        textarea {
+            resize: none;
+            padding: 5px;
+        }
+    </style>
 @endpush
 
 @push('customjs')
     @include('layouts.datatablejs')
+    <script src="{{ asset('/assets/plugins/bootstrap-datepicker/dist/js/bootstrap-datepicker.min.js') }}" type="text/javascript"></script>
+    <script src="{{ asset('/assets/plugins/bootstrap-datepicker/dist/locales/bootstrap-datepicker.es.min.js') }}" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('.datepicker').datepicker({
+                language: "es",
+                clearBtn: true,
+                multidate: false,
+                format: "dd/mm/yyyy",
+                startDate: "-70y",
+                orientation: "bottom",
+                autoclose: true,
+                todayHighlight: true
+            });
+
+            $(".select2").select2({
+                placeholder: "Selecciona",
+                width: "100%",
+                allowClear: true,
+                language: 'es'
+            });
+
+            $(".readonly").keydown(function(e){
+                e.preventDefault();
+            });
+
+            $(`#modal-form`).find(`input[name='date_leave']`).classMaxCharacters(10).classOnlyIntegers('/');
+        });
+    </script>
     <script>
         let tabla;
 
@@ -32,12 +55,14 @@
                 processing: true,
                 serverSide: true,
                 ordering: false,
-                ajax: '{!! $ruta !!}',
+                ajax: '{!! route('estudiantes.data') !!}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false },
+                    { data: 'cuip', name: 'cuip' },
                     { data: 'name', name: 'name' },
-                    { data: 'description', name: 'description' },
-                    { data: 'path', name: 'path'},
+                    { data: 'curp', name: 'curp' },
+                    { data: 'corporation', name: 'corporation' },
+                    { data: 'type', name: 'type' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'status', name: 'status' },
                     { data: 'accion', name: 'accion', className: 'text-center', searchable: false },
@@ -72,18 +97,15 @@
         });
 
         $(document).on('click', ".eliminar", function(){
-            $("#document_name").text($(this).find('.name').val());
-            $("#id").val($(this).find('.id').val());
-            $("#document_id").val($(this).find('.document_id').val());
+            $("#student_name").text($(this).find('.student').val());
             $("#modal-form").prop('action', $(this).find('.action').val());
             $("#delModal").modal('show');
         });
 
         $(document).on('click', ".restaurar", function(){
-            $("#document_name_res").text($(this).find('.name').val());
-            $("#id_res").val($(this).find('.id_res').val());
-            $("#document_id_res").val($(this).find('.document_id_res').val());
+            $("#student_name_res").text($(this).find('.student').val());
             $("#modal-form-res").prop('action', $(this).find('.action').val());
+            $("#student_id").val($(this).find('.student_id').val());
             $("#resModal").modal('show');
         });
     </script>
@@ -93,26 +115,50 @@
 @section('content')
     <!-- Modal Delete -->
     <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModal" aria-hidden="true">
-        <form id="modal-form" method="post">
+        <form id="modal-form" method="post" class="form-horizontal">
             @csrf
-            <div class="modal-dialog" role="document">
+            {!! method_field('DELETE') !!}
+            <div class="modal-dialog modal-lg" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="delModalLabel">¿Eliminar documento?</h5>
+                    <h5 class="modal-title" id="delModalLabel">¿Eliminar estudiante?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
                     </div>
                     <div class="modal-body">
-                        <div class="col-lg-12 text-center">
-                            <i class="fas fa-exclamation-circle fa-5x text-danger"></i>
+                        <div class="form-group">
+                            <div class="row">
+                                <div class="col-lg-12 text-center">
+                                    <i class="fas fa-exclamation-circle fa-5x text-danger"></i>
+                                </div>
+                                <div class="col-lg-12 text-center">
+                                    ¿Estás seguro que quieres eliminar el estudiante <strong id="student_name"></strong>?
+                                </div>
+                            </div>
                         </div>
-                        <div class="col-lg-12 text-center">
-                            ¿Estás seguro que quieres eliminar el documento <strong id="document_name"></strong>?
+                        <div class="row">
+                            <div class="col-lg-5 offset-1">
+                                <label class="label-control">Tipo de baja <span style="color: red;">*</span></label>
+                                <select class="form-select select2" id="type_leave" name="type_leave" style="text-align: left;" required>
+                                    <option value=""></option>
+                                    <option value="1">Baja como estudiante</option>
+                                </select>
+                                <br>
+                            </div>
+                            <div class="col-lg-5">
+                                <label class="label-control">Fecha de baja <span style="color: red;">*</span></label>
+                                <input class="form-control datepicker readonly" type="text" id="date_leave" name="date_leave" value="" required>
+                                <br>
+                            </div>
                         </div>
-                        <input type="hidden" id="id" name="id" value="">
-                        <input type="hidden" id="document_id" name="document_id" value="">
-                        <input type="hidden" id="ruta_redirect" name="ruta_redirect" value="{{ $ruta_redirect }}">
+                        <div class="row">
+                            <div class="col-lg-10 offset-1">
+                                <label class="label-control">Motivo de baja <span style="color: red;">*</span></label>
+                                <textarea class="form-control" id="reason_leave" name="reason_leave" rows="3" required></textarea>
+                                <br>
+                            </div>
+                        </div>
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -130,7 +176,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="delModalLabel">¿Restaurar documento?</h5>
+                    <h5 class="modal-title" id="delModalLabel">¿Restaurar estudiante?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -140,11 +186,9 @@
                             <i class="fas fa-exclamation-circle fa-5x text-warning"></i>
                         </div>
                         <div class="col-lg-12 text-center">
-                            ¿Estás seguro que quieres restaurar el documento <strong id="document_name_res"></strong>?
+                            ¿Estás seguro que quieres restaurar el estudiante <strong id="student_name_res"></strong>?
                         </div>
-                        <input type="hidden" id="id_res" name="id_res" value="">
-                        <input type="hidden" id="document_id_res" name="document_id_res" value="">
-                        <input type="hidden" id="ruta_redirect_res" name="ruta_redirect_res" value="{{ $ruta_redirect }}">
+                        <input type="hidden" id="student_id" name="student_id" value="">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -155,10 +199,13 @@
         </form>
     </div>
     <div class="panel panel-inverse">
+        {!! $errors->first('type_leave', '<small class="help-block text-danger">:message</small><br/>') !!}
+        {!! $errors->first('date_leave', '<small class="help-block text-danger">:message</small><br/>') !!}
+        {!! $errors->first('reason_leave', '<small class="help-block text-danger">:message</small><br/>') !!}
         <div class="panel-heading">
-            <h4 class="panel-title">Documentos del sistema</h4>
+            <h4 class="panel-title">Estudiantes del sistema</h4>
             <div class="panel-heading-btn">
-                @can('documentos.create')<a href="@if(Request::segment(1) == 'list') {{ route('documentos.create', $id) }} @else {{ route('documentos_estudiantes.create', $id) }} @endif" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar documento</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
+                @can('estudiantes.create')<a href="{{ route('estudiantes.create') }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar estudiante</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
@@ -170,13 +217,15 @@
                 <table width="100%" class="table table-striped" id="tabla">
                     <thead>
                         <tr>
-                            <th style="width: 10%;">#</th>
-                            <th style="width: 20%;">Nombre</th>
-                            <th style="width: 20%;">Descripción</th>
-                            <th style="width: 10%;">Documento</th>
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 10%;">CUIP</th>
+                            <th style="width: 20%;">Nombre del estudiante</th>
+                            <th style="width: 10%;">CURP</th>
+                            <th style="width: 10%;">Corporación</th>
+                            <th style="width: 10%;">Activo/Aspirante</th>
                             <th style="width: 10%;">Fecha de alta</th>
                             <th style="width: 10%;">Estatus</th>
-                            <th style="width: 20%;">Acción</th>
+                            <th style="width: 15%;">Acción</th>
                         </tr>
                     </thead>
                 </table>
