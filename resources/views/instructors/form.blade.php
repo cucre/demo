@@ -167,7 +167,7 @@
                 </div>
                 <div class="row">
                     <div class="col-lg-3">
-                        <label class="label-control">Tipo de sangre</span></label>
+                        <label class="label-control">Tipo de sangre</label>
                         <input class="form-control @if($action == 'show') readonlyshow @endif" type="text" id="blood_type" name="blood_type" value="{{ old('blood_type', $instructore->blood_type ?? "") }}" @if($action == 'show') readonly @endif>
                         {!! $errors->first('blood_type', '<small class="help-block text-danger">:message</small>') !!}
                         <br>

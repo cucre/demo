@@ -16,10 +16,14 @@ class Document extends Model {
      * @var array
      */
     protected $fillable = [
-        'name', 'description', 'path', 'instructor_id', 'created_by',
+        'name', 'description', 'path', 'instructor_id', 'student_id', 'created_by',
     ];
 
     public function instructor() {
         return $this->belongsTo(Instructor::class, 'instructor_id', 'id');
+    }
+
+    public function student() {
+        return $this->belongsTo(Student::class, 'student_id', 'id');
     }
 }

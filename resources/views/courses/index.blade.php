@@ -147,21 +147,23 @@
             </div>
         </div>
         <div class="panel-body">
-            <table width="100%" class="table table-striped" id="tabla">
-                <thead>
-                    <tr>
-                        <th style="width: 5%;">#</th>
-                        <th style="width: 20%;">Nombre del curso</th>
-                        <th style="width: 15%;">Clasificación</th>
-                        <th style="width: 5%;">Fecha inicio</th>
-                        <th style="width: 5%;">Fecha fin</th>
-                        <th style="width: 10%;">Instructores</th>
-                        <th style="width: 10%;">Fecha de alta</th>
-                        <th style="width: 10%;">Estatus</th>
-                        <th style="width: 20%;">Acción</th>
-                    </tr>
-                </thead>
-            </table>
+            <div class="table-responsive">
+                <table width="100%" class="table table-striped" id="tabla">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%;">#</th>
+                            <th style="width: 20%;">Nombre del curso</th>
+                            <th style="width: 15%;">Clasificación</th>
+                            <th style="width: 5%;">Fecha inicio</th>
+                            <th style="width: 5%;">Fecha fin</th>
+                            <th style="width: 10%;">Instructores</th>
+                            <th style="width: 10%;">Fecha de alta</th>
+                            <th style="width: 10%;">Estatus</th>
+                            <th style="width: 20%;">Acción</th>
+                        </tr>
+                    </thead>
+                </table>
+            </div>
         </div>
     </div>
 @endsection
