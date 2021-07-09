@@ -26,7 +26,7 @@ class AppServiceProvider extends ServiceProvider {
     public function boot() {
         \Validator::extend('unique_unsensitive', function ($attribute, $value, $parameters, $validator) {
             $query = DB::table($parameters[0])
-                        ->where($parameters[1], 'ILIKE', $value)
+                        ->where($parameters[1], 'LIKE', '%'. $value .'%')
                         ->whereNull('deleted_at');
 
             if(isset($parameters[2])) {
