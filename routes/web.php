@@ -28,6 +28,10 @@ Route::post('/config/usuarios/restore', 'UserController@restore')->name('usuario
 Route::resource('/config/usuarios', 'UserController', ['except' => ['show']]);
 Route::resource('/config/permisos', 'PermissionController');
 
+//Cambiar contraseña
+Route::get('/config/cambiar', 'ChangePasswordController@index')->name('change.password');
+Route::post('/config/cambiar', 'ChangePasswordController@changePassword');
+
 ///************* Catalogos *************///////
 //Corporaciones
 Route::get('/list/corporaciones/data', 'CorporationController@data')->name('corporaciones.data');

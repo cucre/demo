@@ -102,10 +102,14 @@
                 @endif
                 <div class="row">
                     <div class="col-lg-8">
-                        <img src="{{ asset('/imgs/user.png') }}" id="profile-img-tag" width="200px" heigth="200px" />
-                        <input class="form-control-file" type="file" id="path_image" name="path_image" value="{{ old('path_image') }}" accept="image/png,image/jpeg,image/jpg">
-                        {!! $errors->first('path_image', '<small class="help-block text-danger">:message</small>') !!}
-                        <br>
+                        @if($action != 'show')
+                            <img src="{{ asset('/imgs/user.png') }}" id="profile-img-tag" width="200px" heigth="200px" />
+                            <input class="form-control-file" type="file" id="path_image" name="path_image" value="{{ old('path_image') }}" accept="image/png,image/jpeg,image/jpg">
+                            {!! $errors->first('path_image', '<small class="help-block text-danger">:message</small>') !!}
+                            <br>
+                        @else
+                            <img src="data:image/{{ pathinfo($estudiante->path_image)['extension'] }};base64,{{ base64_encode(\Storage::get($estudiante->path_image)) }}" alt="Imagen" title="Imagen" width="200px" height="200px"/>
+                        @endif
                     </div>
                 </div>
                 <div class="row">
@@ -135,7 +139,14 @@
                                 <option value="2" {{ old('type', $estudiante->type ?? "") == 2 ? 'selected' : '' }}>Activo</option>
                             </select>
                         @else
-                            <input class="form-control readonlyshow" type="text" id="type" name="type" value="{{ old('type', $estudiante->type ?? "") }}" readonly>
+                            @php
+                                $tipo = "";
+
+                                if(isset($estudiante->type)) {
+                                    $tipo = $estudiante->type == 1 ? 'Aspirante' : 'Activo';
+                                }
+                            @endphp
+                            <input class="form-control readonlyshow" type="text" id="type" name="type" value="{{ old('type', $tipo ?? "") }}" readonly>
                         @endif
                         {!! $errors->first('type', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
@@ -191,7 +202,14 @@
                                 <option value="2" {{ old('cup', $estudiante->cup ?? "") == 2 ? 'selected' : '' }}>Opción 2</option>
                             </select>
                         @else
-                            <input class="form-control readonlyshow" type="text" id="cup" name="cup" value="{{ old('cup', $estudiante->cup ?? "") }}" readonly>
+                            @php
+                                $cup = "";
+
+                                if(isset($estudiante->cup)) {
+                                    $cup = $estudiante->cup == 1 ? 'Opción 1' : 'Opción 2';
+                                }
+                            @endphp
+                            <input class="form-control readonlyshow" type="text" id="cup" name="cup" value="{{ old('cup', $cup ?? "") }}" readonly>
                         @endif
                         {!! $errors->first('cup', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
@@ -268,7 +286,7 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <label class="label-control">Tipo de sangre</label>
-                        <input class="form-control @if($action == 'show') readonlyshow @endif" type="text" id="blood_type" name="blood_type" value="{{ old('blood_type', $instructore->blood_type ?? "") }}" @if($action == 'show') readonly @endif>
+                        <input class="form-control @if($action == 'show') readonlyshow @endif" type="text" id="blood_type" name="blood_type" value="{{ old('blood_type', $estudiante->blood_type ?? "") }}" @if($action == 'show') readonly @endif>
                         {!! $errors->first('blood_type', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
@@ -276,7 +294,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <label class="label-control">Nota médica</label>
-                        <textarea class="form-control @if($action == 'show') readonlyshow @endif" type="text" id="medical_note" name="medical_note" rows="3" @if($action == 'show') readonly @endif>{{ old('medical_note', $instructore->medical_note ?? "") }}</textarea>
+                        <textarea class="form-control @if($action == 'show') readonlyshow @endif" type="text" id="medical_note" name="medical_note" rows="3" @if($action == 'show') readonly @endif>{{ old('medical_note', $estudiante->medical_note ?? "") }}</textarea>
                         {!! $errors->first('medical_note', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
