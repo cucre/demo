@@ -53,6 +53,11 @@
 	<!-- Utilerias -->
 	<script src="{{ asset('/assets/js/utils/func.js') }}"></script>
 	<script src="{{ asset('/assets/js/utils/plugins.js') }}"></script>
+	<script type="text/javascript">
+		$(".alert-danger").fadeTo(5000, 500).slideUp(500, function() {
+	    	$(".alert-danger").slideUp(500);
+		});
+	</script>
 	<!-- ================== END BASE JS ================== -->
 	@stack('customjs')
 </body>

@@ -21,9 +21,13 @@
 				<span class="d-none d-md-inline">{{ auth()->user()->full_name }}</span> <b class="caret"></b>
 			</a>
 			<div class="dropdown-menu dropdown-menu-right">
+				@can('change_password')
+					<a href="{{ route('change.password') }}" class="dropdown-item">Cambiar contraseña</a>
+					<div class="dropdown-divider"></div>
+				@endcan
 				<a href="{{ route('logout') }}" class="dropdown-item">Cerrar sesión</a>
 			</div>
 		</li>
-	</ul>
+	</div>
 	<!-- end header-nav -->
 </div>
