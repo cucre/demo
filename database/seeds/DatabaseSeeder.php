@@ -17,5 +17,6 @@ class DatabaseSeeder extends Seeder {
         $this->call(AddPermissionsToInstructorsCoursesSeeder::class);
         $this->call(AddPermissionsToStudentsSeeder::class);
         $this->call(AddPermissionsToChangePasswordSeeder::class);
+        $this->call(AddPermissionsToStudentsCoursesSeeder::class);
     }
 }

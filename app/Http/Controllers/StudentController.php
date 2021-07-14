@@ -41,6 +41,9 @@ class StudentController extends Controller {
             ->editColumn('corporation', function($row) {
                 return $row->corporation->corporation;
             })
+            ->editColumn('type', function($row) {
+                return $row->type == 1 ? 'Aspirante' : 'Activo';
+            })
             ->editColumn('created_at', function($row) {
                 return $row->created_at->format('d-m-Y H:i');
             })
@@ -76,19 +79,24 @@ class StudentController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function store(StudentRequest $request) {
-        $image = $request->file('path_image');
-        $fileName = '/images/'. \Str::random(20) .'.'. $image->getClientOriginalExtension();
-
-        Storage::put(
-            $fileName,
-            file_get_contents($request->file('path_image')->getRealPath()),
-            'public'
-        );
         $request->request->add([
             'created_by' => auth()->user()->id,
         ]);
         $requestData = $request->all();
-        $requestData['path_image'] = $fileName;
+
+        if ($request->has('path_image')) {
+            $image = $request->file('path_image');
+            $fileName = '/images/'. \Str::random(20) .'.'. $image->getClientOriginalExtension();
+            Storage::delete($estudiante->path_image);
+
+            Storage::put(
+                $fileName,
+                file_get_contents($request->file('path_image')->getRealPath()),
+                'public'
+            );
+
+            $requestData['path_image'] = $fileName;
+        }
 
         Student::create($requestData);
 

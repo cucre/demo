@@ -1,7 +1,10 @@
 @extends('layouts.master')
 
 @section('page-header')
-    Gestor de cursos
+    <div class="row">
+        <a href="{{ route('cursos.index') }}" style="font-size: 14px;"><em class="fas fa-arrow-left"></em> Regresar </a>
+    </div>
+    <p style="font-size: 18px;">Nombre curso: <strong style="color: blue;">{{ $curso->name }}</strong>. Fecha inicio: <strong style="color: blue;">{{ date('d/m/Y', strtotime($curso->start_date)) }}</strong></p>
 @endsection
 
 @push('customcss')
@@ -18,15 +21,11 @@
                 processing: true,
                 serverSide: true,
                 ordering: false,
-                ajax: '{!! route('cursos.data') !!}',
+                ajax: '{!! route('estudiantes_cursos.data', $curso->id) !!}',
                 columns: [
                     { data: 'DT_RowIndex', name: 'DT_RowIndex', searchable: false },
+                    { data: 'cuip', name: 'cuip' },
                     { data: 'name', name: 'name' },
-                    { data: 'classification', name: 'classification' },
-                    { data: 'start_date', name: 'start_date' },
-                    { data: 'end_date', name: 'end_date' },
-                    { data: 'instructors', name: 'instructors' },
-                    { data: 'students', name: 'students' },
                     { data: 'created_at', name: 'created_at' },
                     { data: 'status', name: 'status' },
                     { data: 'accion', name: 'accion', className: 'text-center', searchable: false },
@@ -61,15 +60,18 @@
         });
 
         $(document).on('click', ".eliminar", function(){
-            $("#course_name").text($(this).find('.course').val());
+            $("#student_name").text($(this).find('.name').val());
+            $("#student_id").val($(this).find('.student_id').val());
+            $("#course_id").val($(this).find('.course_id').val());
             $("#modal-form").prop('action', $(this).find('.action').val());
             $("#delModal").modal('show');
         });
 
         $(document).on('click', ".restaurar", function(){
-            $("#course_name_res").text($(this).find('.course').val());
+            $("#student_name_res").text($(this).find('.name').val());
+            $("#student_id_res").val($(this).find('.student_id_res').val());
+            $("#course_id_res").val($(this).find('.course_id_res').val());
             $("#modal-form-res").prop('action', $(this).find('.action').val());
-            $("#course_id").val($(this).find('.course_id').val());
             $("#resModal").modal('show');
         });
     </script>
@@ -81,11 +83,10 @@
     <div class="modal fade" id="delModal" tabindex="-1" role="dialog" aria-labelledby="delModal" aria-hidden="true">
         <form id="modal-form" method="post">
             @csrf
-            {!! method_field('DELETE') !!}
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="delModalLabel">¿Eliminar curso?</h5>
+                    <h5 class="modal-title" id="delModalLabel">¿Eliminar estudiante?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -95,8 +96,10 @@
                             <i class="fas fa-exclamation-circle fa-5x text-danger"></i>
                         </div>
                         <div class="col-lg-12 text-center">
-                            ¿Estás seguro que quieres eliminar el curso <strong id="course_name"></strong>?
+                            ¿Estás seguro que quieres eliminar el estudiante <strong id="student_name"></strong>?
                         </div>
+                        <input type="hidden" id="student_id" name="student_id" value="">
+                        <input type="hidden" id="course_id" name="course_id" value="">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -114,7 +117,7 @@
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                    <h5 class="modal-title" id="delModalLabel">¿Restaurar curso?</h5>
+                    <h5 class="modal-title" id="delModalLabel">¿Restaurar estudiante?</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -124,9 +127,10 @@
                             <i class="fas fa-exclamation-circle fa-5x text-warning"></i>
                         </div>
                         <div class="col-lg-12 text-center">
-                            ¿Estás seguro que quieres restaurar el curso <strong id="course_name_res"></strong>?
+                            ¿Estás seguro que quieres restaurar el estudiante <strong id="student_name_res"></strong>?
                         </div>
-                        <input type="hidden" id="course_id" name="course_id" value="">
+                        <input type="hidden" id="course_id_res" name="course_id_res" value="">
+                        <input type="hidden" id="student_id_res" name="student_id_res" value="">
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
@@ -138,9 +142,9 @@
     </div>
     <div class="panel panel-inverse">
         <div class="panel-heading">
-            <h4 class="panel-title">Cursos del sistema</h4>
+            <h4 class="panel-title">Estudiantes por curso del sistema</h4>
             <div class="panel-heading-btn">
-                @can('cursos.create')<a href="{{ route('cursos.create') }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar curso</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
+                @can('students_courses.create')<a href="{{ route('estudiantes_cursos.create', $curso->id) }}" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar estudiante</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>
@@ -152,16 +156,12 @@
                 <table width="100%" class="table table-striped" id="tabla">
                     <thead>
                         <tr>
-                            <th style="width: 5%;">#</th>
-                            <th style="width: 20%;">Nombre del curso</th>
-                            <th style="width: 10%;">Clasificación</th>
-                            <th style="width: 5%;">Fecha inicio</th>
-                            <th style="width: 5%;">Fecha fin</th>
-                            <th style="width: 10%;">Instructores</th>
-                            <th style="width: 10%;">Estudiantes</th>
+                            <th style="width: 10%;">#</th>
+                            <th style="width: 20%;">CUIP</th>
+                            <th style="width: 30%;">Nombre del estudiante</th>
                             <th style="width: 10%;">Fecha de alta</th>
                             <th style="width: 10%;">Estatus</th>
-                            <th style="width: 15%;">Acción</th>
+                            <th style="width: 20%;">Acción</th>
                         </tr>
                     </thead>
                 </table>

@@ -24,6 +24,10 @@ class Course extends Model {
     }
 
     public function instructors() {
-        return $this->belongsToMany(Instructor::class, 'instructor_courses');
+        return $this->belongsToMany(Instructor::class, 'instructor_courses')->whereNull('instructor_courses.deleted_at');
+    }
+
+    public function students() {
+        return $this->belongsToMany(Student::class, 'student_courses')->whereNull('student_courses.deleted_at');
     }
 }
