@@ -21,11 +21,17 @@ class StudentRequest extends FormRequest {
      */
     public function rules() {
         $this->email = mb_strtoupper($this->email);
+        $this->curp = mb_strtoupper($this->curp);
+        $this->cuip = mb_strtoupper($this->cuip);
         $ignore = '';
+        $ignore_curp = '';
+        $ignore_cuip = '';
         $path_image = '';
 
         if($this->isMethod('put')) {
             $ignore = ','. $this->route('estudiante')->email;
+            $ignore_curp = ','. $this->route('estudiante')->curp;
+            $ignore_cuip = ','. $this->route('estudiante')->cuip;
         }
 
         return [
@@ -37,9 +43,10 @@ class StudentRequest extends FormRequest {
             'curp'                         => array('required',
                                                 'min:18',
                                                 'max:18',
-                                                'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/'
-                                                ),
-            'cuip'                         => 'required|max:20',
+                                                'regex:/^([A-Z][AEIOUX][A-Z]{2}\d{2}(?:0[1-9]|1[0-2])(?:0[1-9]|[12]\d|3[01])[HM](?:AS|B[CS]|C[CLMSH]|D[FG]|G[TR]|HG|JC|M[CNS]|N[ETL]|OC|PL|Q[TR]|S[PLR]|T[CSL]|VZ|YN|ZS)[B-DF-HJ-NP-TV-Z]{3}[A-Z\d])(\d)$/',
+                                                'unique_unsensitive:students,curp'. $ignore_curp
+                                            ),
+            'cuip'                         => 'required|max:20|unique_unsensitive:students,cuip'. $ignore_cuip,
             'birth_date'                   => 'required',
             'email'                        => 'required|email|unique_unsensitive:students,email'. $ignore,
             'telephone'                    => 'required|integer',

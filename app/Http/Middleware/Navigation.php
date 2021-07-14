@@ -95,7 +95,7 @@ class Navigation {
             }
         }
 
-        if(auth()->user()->hasAnyRole(['Administrador', 'Instructor', 'Coordinación académica'])) {
+        if(auth()->user()->hasAnyPermission(['cursos.index', 'estudiantes.index'])) {
             $menu['Control'] = [
                 'url'     => 'javascript:;',
                 'active'  => (strpos($url, str_replace(url('/'), '', '/control')) !== false) ? 'active' : '',

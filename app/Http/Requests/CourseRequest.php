@@ -31,8 +31,8 @@ class CourseRequest extends FormRequest {
             'name'                => 'required|max:255|unique_unsensitive:courses,name'. $ignore,
             'classification'      => 'required',
             'hours'               => 'required|integer',
-            'start_date'          => 'required|before_or_equal:end_date',
-            'end_date'            => 'required|after_or_equal:start_date',
+            'start_date'          => 'required|after_or_equal:end_date',
+            'end_date'            => 'required|before_or_equal:start_date',
             'subjects'            => 'required|not_in:0',
         ];
     }

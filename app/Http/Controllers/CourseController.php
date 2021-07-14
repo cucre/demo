@@ -30,7 +30,7 @@ class CourseController extends Controller {
     }
 
     public function data() {
-        $courses = Course::with(['instructors'])->orderBy('name')->withTrashed();
+        $courses = Course::with(['instructors', 'students'])->orderBy('name')->withTrashed();
 
         $datatable = DataTables::eloquent($courses)
             ->addIndexColumn()
@@ -46,13 +46,16 @@ class CourseController extends Controller {
             ->addColumn('instructors', function($row) {
                 return \View::make('courses.instructors')->with(compact('row'))->render();
             })
+            ->addColumn('students', function($row) {
+                return \View::make('courses.students')->with(compact('row'))->render();
+            })
             ->addColumn('accion', function($row) {
                 return \View::make('courses.buttons')->with(compact('row'))->render();
             })
             ->addColumn('status', function($row) {
                 return is_null($row->deleted_at) ? 'Activo' : 'Inactivo desde '. $row->deleted_at->format('d-m-Y H:i');
             })
-            ->rawColumns(['instructors', 'status', 'accion'])
+            ->rawColumns(['instructors', 'students', 'status', 'accion'])
             ->toJson(true);
 
         return $datatable;
