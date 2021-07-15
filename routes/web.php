@@ -29,8 +29,8 @@ Route::resource('/config/usuarios', 'UserController', ['except' => ['show']]);
 Route::resource('/config/permisos', 'PermissionController');
 
 //Cambiar contraseña
-Route::get('/config/cambiar', 'ChangePasswordController@index')->name('change.password');
-Route::post('/config/cambiar', 'ChangePasswordController@changePassword');
+Route::get('/home/cambiar', 'ChangePasswordController@index')->name('change.password');
+Route::post('/home/cambiar', 'ChangePasswordController@changePassword');
 
 ///************* Catalogos *************///////
 //Corporaciones

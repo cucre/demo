@@ -28,6 +28,6 @@
 				<a href="{{ route('logout') }}" class="dropdown-item">Cerrar sesión</a>
 			</div>
 		</li>
-	</div>
+	</ul>
 	<!-- end header-nav -->
 </div>
