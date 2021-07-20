@@ -46,11 +46,6 @@ class Student extends Model {
         return $this->name .' '. $this->paterno .' '. $this->materno;
     }
 
-    public function getBirthFormatDateAttribute() {
-        //return $this->birth_date->format('d/m/Y');
-        return date('d/m/Y', $this->birth_date ?? "");
-    }
-
     public function corporation() {
         return $this->belongsTo(Corporation::class);
     }
