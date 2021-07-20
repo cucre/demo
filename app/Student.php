@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Carbon\Carbon;
 
 class Student extends Model {
     use SoftDeletes;
@@ -25,12 +26,37 @@ class Student extends Model {
         $this->attributes['email'] = mb_strtolower($email);
     }
 
+    public function setBirthDateAttribute($birth_date) {
+        if(env('DB_CONNECTION') == 'mysql') {
+            $this->attributes['birth_date'] = Carbon::createFromFormat('Y-m-d', $birth_date);
+        } else {
+            $this->attributes['birth_date'] = Carbon::createFromFormat('d/m/Y', $birth_date);
+        }
+    }
+
+    public function setDateLeaveAttribute($date_leave) {
+        if(env('DB_CONNECTION') == 'mysql') {
+            $this->attributes['date_leave'] = Carbon::createFromFormat('Y-m-d', $date_leave);
+        } else {
+            $this->attributes['date_leave'] = Carbon::createFromFormat('d/m/Y', $date_leave);
+        }
+    }
+
     public function getFullNameAttribute() {
         return $this->name .' '. $this->paterno .' '. $this->materno;
     }
 
+    public function getBirthFormatDateAttribute() {
+        //return $this->birth_date->format('d/m/Y');
+        return date('d/m/Y', $this->birth_date ?? "");
+    }
+
     public function corporation() {
         return $this->belongsTo(Corporation::class);
+    }
+
+    public function student_status() {
+        return $this->belongsTo(StudentStatus::class);
     }
 
     public function documents() {

@@ -144,7 +144,7 @@ class InstructorController extends Controller {
 
     public function restore(Request $request) {
         $instructore = Instructor::withTrashed()->findOrFail($request->instructor_id);
-        $instructore->update(['type_leave' => null, 'date_leave' => null, 'reason_leave' => null]);
+        $instructore->update(['type_leave' => null, 'reason_leave' => null]);
         $instructore->restore();
 
         return redirect()->route('instructores.index');

@@ -52,6 +52,11 @@ Route::post('/list/instructores/documentos/delete', 'DocumentController@delete')
 Route::post('/list/instructores/documentos/restore', 'DocumentController@restore')->name('documentos.restore');
 Route::resource('/list/instructores/documentos', 'DocumentController', ['only' => ['store', 'update']]);
 
+//Estatus de Estudiantes
+Route::get('/list/estatus/data', 'StudentStatusController@data')->name('estatus.data');
+Route::post('/list/estatus/restore', 'StudentStatusController@restore')->name('estatus.restore');
+Route::resource('/list/estatus', 'StudentStatusController');
+
 //Materias
 Route::get('/list/materias/data', 'SubjectController@data')->name('materias.data');
 Route::post('/list/materias/restore', 'SubjectController@restore')->name('materias.restore');

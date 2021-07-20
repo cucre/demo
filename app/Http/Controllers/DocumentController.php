@@ -31,8 +31,15 @@ class DocumentController extends Controller {
     }
 
     public function data($id = null) {
-        /*$document = Document::with(['instructor'])->orderBy('name')->where('instructor_id', $instructor_id)->withTrashed()->get();*/
-        $documents = Document::with(['instructor', 'student'])->where('instructor_id', $id)->orWhere('student_id', $id)->orderBy('name')->withTrashed()->get();
+        $documents = Document::with(['instructor', 'student'])->orderBy('name');
+
+        if (request()->segment(1) == 'list') {
+            $documents = $documents->where('instructor_id', $id);
+        } else {
+            $documents = $documents->where('student_id', $id);
+        }
+
+        $documents = $documents->withTrashed()->get();
 
         $datatable = DataTables::of($documents)
             ->addIndexColumn()

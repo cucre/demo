@@ -60,7 +60,7 @@ class Navigation {
             }
         }
 
-        if(auth()->user()->hasAnyPermission(['corporaciones.index', 'instructores.index'])) {
+        if(auth()->user()->hasAnyPermission(['corporaciones.index', 'instructores.index', 'materias.index', 'estatus.index'])) {
             $menu['Catálogos'] = [
                 'url'     => 'javascript:;',
                 'active'  => (strpos($url, str_replace(url('/'), '', '/list')) !== false) ? 'active' : '',
@@ -91,6 +91,15 @@ class Navigation {
                     'url'    => route('materias.index'),
                     'icon'   => 'fas fa-ellipsis-h',
                     'active' => (strpos($url, str_replace(url('/'), '', '/materias')) !== false) ? 'active' : ''
+                ];
+            }
+
+            if(auth()->user()->hasPermissionTo('estatus.index')) {
+                $menu['Catálogos']['submenu'][] =  [
+                    'name'   => 'Estatus',
+                    'url'    => route('estatus.index'),
+                    'icon'   => 'fas fa-ellipsis-h',
+                    'active' => (strpos($url, str_replace(url('/'), '', '/estatus')) !== false) ? 'active' : ''
                 ];
             }
         }
