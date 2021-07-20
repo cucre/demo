@@ -22,17 +22,21 @@ class Course extends Model {
 
     public function setStartDateAttribute($start_date) {
         if(env('DB_CONNECTION') == 'mysql') {
-            $this->attributes['start_date'] = Carbon::createFromFormat('Y-m-d', $start_date);
+            //$this->attributes['start_date'] = Carbon::createFromFormat('Y-m-d', $start_date);
+            $this->attributes['start_date'] = date('Y-m-d', strtotime($start_date));
         } else {
-            $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y', $start_date);
+            //$this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y', $start_date);
+            $this->attributes['start_date'] = date('d/m/Y', strtotime($start_date));
         }
     }
 
     public function setEndDateAttribute($end_date) {
         if(env('DB_CONNECTION') == 'mysql') {
-            $this->attributes['end_date'] = Carbon::createFromFormat('Y-m-d', $end_date);
+            $this->attributes['end_date'] = date('Y-m-d', strtotime($end_date));
+            //$this->attributes['end_date'] = Carbon::createFromFormat('Y-m-d', $end_date);
         } else {
-            $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y', $end_date);
+            //$this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y', $end_date);
+            $this->attributes['end_date'] = date('d/m/Y', strtotime($end_date));
         }
     }
 
