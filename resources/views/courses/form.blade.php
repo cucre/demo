@@ -113,13 +113,13 @@
                 <div class="row">
                     <div class="col-lg-3">
                         <label class="label-control">Fecha inicio <span class="text-danger">*</span></label>
-                        <input class="form-control readonly" type="text" id="start_date" name="start_date" value="{{ old('start_date', $curso->start_date ?? "") }}" readonly>
+                        <input class="form-control readonly" type="text" id="start_date" name="start_date" value="{{ old('start_date', (isset($curso->start_date) ? date('d/m/Y', strtotime($curso->start_date)) : "")) }}" readonly>
                         {!! $errors->first('start_date', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
                     <div class="col-lg-3">
                         <label class="label-control">Fecha fin <span class="text-danger">*</span></label>
-                        <input class="form-control readonly" type="text" id="end_date" name="end_date" value="{{ old('end_date', $curso->end_date ?? "") }}" readonly>
+                        <input class="form-control readonly" type="text" id="end_date" name="end_date" value="{{ old('end_date', (isset($curso->end_date) ? date('d/m/Y', strtotime($curso->end_date)) : "")) }}" readonly>
                         {!! $errors->first('end_date', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
