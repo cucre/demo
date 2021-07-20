@@ -19,6 +19,22 @@ class Course extends Model {
         'name', 'classification', 'hours', 'start_date', 'end_date', 'without_evaluation', 'created_by',
     ];
 
+    public function setStartDateAttribute($start_date) {
+        if(env('DB_CONNECTION') == 'mysql') {
+            $this->attributes['start_date'] = Carbon::createFromFormat('Y-m-d', $start_date);
+        } else {
+            $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y', $start_date);
+        }
+    }
+
+    public function setEndDateAttribute($end_date) {
+        if(env('DB_CONNECTION') == 'mysql') {
+            $this->attributes['end_date'] = Carbon::createFromFormat('Y-m-d', $end_date);
+        } else {
+            $this->attributes['end_date'] = Carbon::createFromFormat('d/m/Y', $end_date);
+        }
+    }
+
     public function subjects() {
         return $this->belongsToMany(Subject::class, 'subject_course');
     }
