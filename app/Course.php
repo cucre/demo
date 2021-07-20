@@ -27,7 +27,7 @@ class Course extends Model {
     public function setStartDateAttribute($start_date) {
         //$this->attributes['start_date'] = Carbon::parse($start_date);
         if(env('DB_CONNECTION') == 'mysql') {
-            $this->attributes['start_date'] = Carbon::parse('Y-m-d', $start_date);
+            $this->attributes['start_date'] = Carbon::createFromFormat('Y-m-d', $start_date);
         } else {
             $this->attributes['start_date'] = Carbon::createFromFormat('d/m/Y', $start_date);
         }
