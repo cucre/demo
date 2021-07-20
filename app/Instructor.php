@@ -27,19 +27,11 @@ class Instructor extends Model {
     }
 
     public function setBirthDateAttribute($birth_date) {
-        if(env('DB_CONNECTION') == 'mysql') {
-            $this->attributes['birth_date'] = Carbon::createFromFormat('Y-m-d', $birth_date);
-        } else {
-            $this->attributes['birth_date'] = Carbon::createFromFormat('d/m/Y', $birth_date);
-        }
+        $this->attributes['birth_date'] = Carbon::createFromFormat('d/m/Y', $birth_date);
     }
 
     public function setDateLeaveAttribute($date_leave) {
-        if(env('DB_CONNECTION') == 'mysql') {
-            $this->attributes['date_leave'] = Carbon::createFromFormat('Y-m-d', $date_leave);
-        } else {
-            $this->attributes['date_leave'] = Carbon::createFromFormat('d/m/Y', $date_leave);
-        }
+        $this->attributes['date_leave'] = Carbon::createFromFormat('d/m/Y', $date_leave);
     }
 
     public function getFullNameAttribute() {
