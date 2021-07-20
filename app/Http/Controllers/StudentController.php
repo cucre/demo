@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Student;
 use App\Corporation;
+use App\StudentStatus;
 use Illuminate\Http\Request;
 use App\Http\Requests\StudentRequest;
 use Illuminate\Support\Facades\Storage;
@@ -68,8 +69,9 @@ class StudentController extends Controller {
     public function create(Student $estudiante) {
         $action = 'create';
         $corporations = Corporation::all();
+        $student_status = StudentStatus::all();
 
-        return \View::make('students.form')->with(compact('action', 'estudiante', 'corporations'));
+        return \View::make('students.form')->with(compact('action', 'estudiante', 'corporations', 'student_status'));
     }
 
     /**
@@ -125,8 +127,9 @@ class StudentController extends Controller {
     public function edit(Student $estudiante) {
         $action = 'edit';
         $corporations = Corporation::all();
+        $student_status = StudentStatus::all();
 
-        return \View::make('students.form')->with(compact('action', 'estudiante', 'corporations'));
+        return \View::make('students.form')->with(compact('action', 'estudiante', 'corporations', 'student_status'));
     }
 
     /**
@@ -186,7 +189,7 @@ class StudentController extends Controller {
 
     public function restore(Request $request) {
         $student = Student::withTrashed()->findOrFail($request->student_id);
-        $student->update(['type_leave' => null, 'date_leave' => null, 'reason_leave' => null]);
+        $student->update(['type_leave' => null, 'reason_leave' => null]);
         $student->restore();
 
         return redirect()->route('estudiantes.index');

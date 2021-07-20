@@ -102,13 +102,17 @@
                 @endif
                 <div class="row">
                     <div class="col-lg-8">
-                        @if($action != 'show')
+                        @if($action == 'create')
                             <img src="{{ asset('/imgs/user.png') }}" id="profile-img-tag" width="200px" heigth="200px" />
                             <input class="form-control-file" type="file" id="path_image" name="path_image" value="{{ old('path_image') }}" accept="image/png,image/jpeg,image/jpg">
                             {!! $errors->first('path_image', '<small class="help-block text-danger">:message</small>') !!}
                             <br>
                         @else
-                            <img src="data:image/{{ pathinfo($estudiante->path_image)['extension'] }};base64,{{ base64_encode(\Storage::get($estudiante->path_image)) }}" alt="Imagen" title="Imagen" width="200px" height="200px"/>
+                            @if(isset($estudiante->path_image))
+                                <img src="data:image/{{ pathinfo($estudiante->path_image)['extension'] }};base64,{{ base64_encode(\Storage::get($estudiante->path_image)) }}" alt="Imagen" title="Imagen" width="200px" height="200px"/>
+                            @else
+                                <img src="{{ asset('/imgs/user.png') }}" id="profile-img-tag" width="200px" heigth="200px" />
+                            @endif
                         @endif
                     </div>
                 </div>
@@ -135,18 +139,14 @@
                         @if($action != 'show')
                             <select class="form-select select2" id="type" name="type" style="text-align: left;">
                                 <option value=""></option>
-                                <option value="1" {{ old('type', $estudiante->type ?? "") == 1 ? 'selected' : '' }}>Aspirante</option>
-                                <option value="2" {{ old('type', $estudiante->type ?? "") == 2 ? 'selected' : '' }}>Activo</option>
+                                @foreach($student_status as $status)
+                                    <option value="{{ $status->id }}" @if(old('type', is_null($estudiante->type) ? null : $estudiante->type) == $status->id) selected @endif>
+                                        {{ $status->name ?? "" }}
+                                    </option>
+                                @endforeach
                             </select>
                         @else
-                            @php
-                                $tipo = "";
-
-                                if(isset($estudiante->type)) {
-                                    $tipo = $estudiante->type == 1 ? 'Aspirante' : 'Activo';
-                                }
-                            @endphp
-                            <input class="form-control readonlyshow" type="text" id="type" name="type" value="{{ old('type', $tipo ?? "") }}" readonly>
+                            <input class="form-control readonlyshow" type="text" id="type" name="type" value="{{ old('type', $estudiante->student_status->name ?? "") }}" readonly>
                         @endif
                         {!! $errors->first('type', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
@@ -181,7 +181,7 @@
                     </div>
                     <div class="col-lg-4">
                         <label class="label-control">Fecha de nacimiento @if($action != 'show')<span class="text-danger">*</span>@endif</label>
-                        <input class="form-control @if($action == 'show') readonlyshow @else datepicker readonly @endif" type="text" id="birth_date" name="birth_date" value="{{ old('birth_date', $estudiante->birth_date ?? "") }}" readonly>
+                        <input class="form-control @if($action == 'show') readonlyshow @else datepicker readonly @endif" type="text" id="birth_date" name="birth_date" value="{{ old('birth_date', (isset($estudiante->birth_date) ? date('d/m/Y', strtotime($estudiante->birth_date)) : "")) }}" readonly>
                         {!! $errors->first('birth_date', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>

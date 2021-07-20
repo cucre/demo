@@ -112,7 +112,7 @@
                     </div>
                     <div class="col-lg-3">
                         <label class="label-control">Fecha de nacimiento @if($action != 'show')<span class="text-danger">*</span>@endif</label>
-                        <input class="form-control @if($action == 'show') readonlyshow @else datepicker readonly @endif" type="text" id="birth_date" name="birth_date" value="{{ old('birth_date', $instructore->birth_date ?? "") }}" readonly>
+                        <input class="form-control @if($action == 'show') readonlyshow @else datepicker readonly @endif" type="text" id="birth_date" name="birth_date" value="{{ old('birth_date', (isset($instructore->birth_date) ? date('d/m/Y', strtotime($instructore->birth_date)) : "")) }}" readonly>
                         {!! $errors->first('birth_date', '<small class="help-block text-danger">:message</small>') !!}
                         <br>
                     </div>
