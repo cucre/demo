@@ -14,7 +14,7 @@ class DocumentController extends Controller {
     public function __construct() {
         $this->middleware('auth');
         $this->middleware('permission:documentos.create')->only(['create', 'store']);
-        $this->middleware('permission:documentos.index')->only('index');
+        $this->middleware('permission:documentos.index')->only(['index', 'data']);
         $this->middleware('permission:documentos.edit')->only(['edit', 'update']);
         $this->middleware('permission:documentos.show')->only('show');
         $this->middleware('permission:documentos.delete')->only('destroy');

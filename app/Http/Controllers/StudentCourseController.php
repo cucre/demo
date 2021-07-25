@@ -15,7 +15,7 @@ class StudentCourseController extends Controller {
     public function __construct() {
         $this->middleware('auth');
         $this->middleware('permission:students_courses.create')->only(['create', 'store']);
-        $this->middleware('permission:students_courses.index')->only('index');
+        $this->middleware('permission:students_courses.index')->only(['index', 'data']);
         $this->middleware('permission:students_courses.delete')->only('destroy');
         $this->middleware('permission:students_courses.restore')->only('restore');
     }

@@ -98,3 +98,7 @@ Route::get('/control/cursos/estudiante/data/{id}', 'StudentCourseController@data
 Route::post('/control/cursos/estudiante/delete', 'StudentCourseController@delete')->name('estudiantes_cursos.delete');
 Route::post('/control/cursos/estudiante/restore', 'StudentCourseController@restore')->name('estudiantes_cursos.restore');
 Route::post('/control/cursos/estudiante/store', 'StudentCourseController@store')->name('estudiantes_cursos.store');
+
+//Control de estudiantes
+Route::get('/control/control_estudiantes/', 'StudentControlController@index')->name('control_estudiantes.index');
+Route::get('/control/control_estudiantes/data', 'StudentControlController@data')->name('control_estudiantes.data');

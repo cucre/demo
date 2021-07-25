@@ -15,7 +15,7 @@ class InstructorCourseController extends Controller {
     public function __construct() {
         $this->middleware('auth');
         $this->middleware('permission:instructors_courses.create')->only(['create', 'store']);
-        $this->middleware('permission:instructors_courses.index')->only('index');
+        $this->middleware('permission:instructors_courses.index')->only(['index', 'data']);
         $this->middleware('permission:instructors_courses.edit')->only(['edit', 'update']);
         $this->middleware('permission:instructors_courses.show')->only('show');
         $this->middleware('permission:instructors_courses.delete')->only('destroy');
