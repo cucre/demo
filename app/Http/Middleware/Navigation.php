@@ -104,7 +104,7 @@ class Navigation {
             }
         }
 
-        if(auth()->user()->hasAnyPermission(['cursos.index', 'estudiantes.index'])) {
+        if(auth()->user()->hasAnyPermission(['cursos.index', 'estudiantes.index', 'control_estudiantes.index'])) {
             $menu['Control'] = [
                 'url'     => 'javascript:;',
                 'active'  => (strpos($url, str_replace(url('/'), '', '/control')) !== false) ? 'active' : '',
@@ -149,16 +149,14 @@ class Navigation {
                 ];*/
             //}
 
-            /*if(auth()->user()->hasPermissionTo('instructores.index')) {*/
-                /*$menu['Control']['submenu'][] =  [
-                    'name'   => 'Control de estudiante',
-                    //'url'    => route('instructores.index'),
-                    'url'    => '',
+            if(auth()->user()->hasPermissionTo('control_estudiantes.index')) {
+                $menu['Control']['submenu'][] =  [
+                    'name'   => 'Control de estudiantes',
+                    'url'    => route('control_estudiantes.index'),
                     'icon'   => 'fas fa-ellipsis-h',
-                    //'active' => (strpos($url, str_replace(url('/'), '', '/instructores')) !== false) ? 'active' : ''
-                    'active' => ''
-                ];*/
-            //}
+                    'active' => (strpos($url, str_replace(url('/'), '', '/control_estudiantes')) !== false) ? 'active' : ''
+                ];
+            }
         }
 
         return $menu;

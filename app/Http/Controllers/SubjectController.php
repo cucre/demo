@@ -12,7 +12,7 @@ class SubjectController extends Controller {
     public function __construct() {
         $this->middleware('auth');
         $this->middleware('permission:materias.create')->only(['create', 'store']);
-        $this->middleware('permission:materias.index')->only('index');
+        $this->middleware('permission:materias.index')->only(['index', 'data']);
         $this->middleware('permission:materias.edit')->only(['edit', 'update']);
         $this->middleware('permission:materias.show')->only('show');
         $this->middleware('permission:materias.delete')->only('destroy');

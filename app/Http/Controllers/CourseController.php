@@ -13,7 +13,7 @@ class CourseController extends Controller {
     public function __construct() {
         $this->middleware('auth');
         $this->middleware('permission:cursos.create')->only(['create', 'store']);
-        $this->middleware('permission:cursos.index')->only('index');
+        $this->middleware('permission:cursos.index')->only(['index', 'data']);
         $this->middleware('permission:cursos.edit')->only(['edit', 'update']);
         $this->middleware('permission:cursos.show')->only('show');
         $this->middleware('permission:cursos.delete')->only('destroy');

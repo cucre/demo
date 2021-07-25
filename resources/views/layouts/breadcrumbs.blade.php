@@ -8,7 +8,7 @@
 						@if($loop->iteration != 3 || ($loop->iteration == 3 && !is_numeric($item)))
 						{{
 							Session::get('Breadcrumbs')->contains($item) ?
-								Session::get('Breadcrumbs')->filter(function($i) use($item){
+								Session::get('Breadcrumbs')->filter(function($i) use($item) {
 									return $i == $item;
 								})->flip()->first() :
 								ucfirst($item)

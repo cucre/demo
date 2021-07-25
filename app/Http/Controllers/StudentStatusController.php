@@ -12,7 +12,7 @@ class StudentStatusController extends Controller {
     public function __construct() {
         $this->middleware('auth');
         $this->middleware('permission:estatus.create')->only(['create', 'store']);
-        $this->middleware('permission:estatus.index')->only('index');
+        $this->middleware('permission:estatus.index')->only(['index', 'data']);
         $this->middleware('permission:estatus.edit')->only(['edit', 'update']);
         $this->middleware('permission:estatus.show')->only('show');
         $this->middleware('permission:estatus.delete')->only('destroy');

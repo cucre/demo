@@ -12,7 +12,7 @@ class InstructorController extends Controller {
     public function __construct() {
         $this->middleware('auth');
         $this->middleware('permission:instructores.create')->only(['create', 'store']);
-        $this->middleware('permission:instructores.index')->only('index');
+        $this->middleware('permission:instructores.index')->only(['index', 'data']);
         $this->middleware('permission:instructores.edit')->only(['edit', 'update']);
         $this->middleware('permission:instructores.show')->only('show');
         $this->middleware('permission:instructores.delete')->only('destroy');
