@@ -58,10 +58,10 @@ class StudentControlController extends Controller {
 
         if($request->filled('name') || $request->filled('paterno') || $request->filled('materno') || $request->filled('cuip') || $request->filled('type') || $request->filled('corporation')) {
             $courses = $courses->whereHas('students', function ($query) use($request) {
-                return $query->where('name', 'LIKE', '%'. mb_strtoupper($request->name, 'UTF-8') .'%')
-                ->orWhere('paterno', 'LIKE', '%'. mb_strtoupper($request->paterno, 'UTF-8') .'%')
-                ->orWhere('materno', 'LIKE', '%'. mb_strtoupper($request->materno, 'UTF-8') .'%')
-                ->orWhere('cuip', 'LIKE', '%'. mb_strtoupper($request->cuip, 'UTF-8') .'%')
+                return $query->where('name', 'like', '%'. mb_strtoupper($request->name, 'UTF-8') .'%')
+                ->orWhere('paterno', 'like', '%'. mb_strtoupper($request->paterno, 'UTF-8') .'%')
+                ->orWhere('materno', 'like', '%'. mb_strtoupper($request->materno, 'UTF-8') .'%')
+                ->orWhere('cuip', 'like', '%'. mb_strtoupper($request->cuip, 'UTF-8') .'%')
                 ->orWhere('type', $request->type)
                 ->orWhere('corporation_id', $request->corporation);
             }); 
