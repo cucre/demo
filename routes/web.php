@@ -101,4 +101,4 @@ Route::post('/control/cursos/estudiante/store', 'StudentCourseController@store')
 
 //Control de estudiantes
 Route::get('/control/control_estudiantes/', 'StudentControlController@index')->name('control_estudiantes.index');
-Route::get('/control/control_estudiantes/data', 'StudentControlController@data')->name('control_estudiantes.data');
+Route::post('/control/control_estudiantes/data', 'StudentControlController@data')->name('control_estudiantes.data');

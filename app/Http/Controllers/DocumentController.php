@@ -33,10 +33,10 @@ class DocumentController extends Controller {
     public function data($id = null) {
         $documents = Document::with(['instructor', 'student'])->orderBy('name');
 
-        if (request()->segment(1) == 'list') {
-            $documents = $documents->where('instructor_id', $id);
-        } else {
-            $documents = $documents->where('student_id', $id);
+        if (request()->route()->named('documentos.data')) {
+            $documents->where('instructor_id', $id);
+        } elseif (request()->route()->named('documentos_estudiantes.data')) {
+            $documents->where('student_id', $id);
         }
 
         $documents = $documents->withTrashed()->get();
@@ -69,7 +69,19 @@ class DocumentController extends Controller {
     public function create(Document $documento, $id = null) {
         $action = 'create';
 
-        return \View::make('documents.form')->with(compact('action', 'documento', 'id'));
+        if (request()->route()->named('documentos.create')) {
+            $identificador = 'instructor_id';
+            $ruta_create = route('documentos.store');
+            $ruta_redirect = 'documentos.index';
+            $ruta_return = route('documentos.index', $id);
+        } elseif (request()->route()->named('documentos_estudiantes.create')) {
+            $identificador = 'student_id';
+            $ruta_create = route('documentos_estudiantes.documentos.store');
+            $ruta_redirect = 'documentos_estudiantes.index';
+            $ruta_return = route('documentos_estudiantes.index', $id);
+        }
+
+        return \View::make('documents.form')->with(compact('action', 'documento', 'id', 'identificador', 'ruta_create', 'ruta_redirect', 'ruta_return'));
     }
 
     /**
@@ -116,7 +128,19 @@ class DocumentController extends Controller {
     public function edit(Document $documento, $id = null) {
         $action = 'edit';
 
-        return \View::make('documents.form')->with(compact('action', 'documento', 'id'));
+        if (request()->route()->named('documentos.edit', $id)) {
+            $identificador = 'instructor_id';
+            $ruta_edit = route('documentos.update', $id);
+            $ruta_redirect = 'documentos.index';
+            $ruta_return = route('documentos.index', $id);
+        } elseif (request()->route()->named('documentos_estudiantes.edit', $id)) {
+            $identificador = 'student_id';
+            $ruta_edit = route('documentos_estudiantes.documentos.update', $id);
+            $ruta_redirect = 'documentos_estudiantes.index';
+            $ruta_return = route('documentos_estudiantes.index', $id);
+        }
+
+        return \View::make('documents.form')->with(compact('action', 'documento', 'id', 'identificador', 'ruta_edit', 'ruta_redirect', 'ruta_return'));
     }
 
     /**

@@ -1,5 +1,5 @@
 @php
-    if (Request::segment(1) == 'list') {
+    if (Request::route()->named('documentos.data')) {
     	$identificador = $row->instructor_id;
         $ruta_edit = route('documentos.edit', [$row->id, $row->instructor_id]);
         $ruta_delete = route('documentos.delete');

@@ -50,7 +50,7 @@ class Student extends Model {
         return $this->hasMany(Document::class);
     }
 
-    /*public function courses() {
+    public function courses() {
         return $this->belongsToMany(Course::class, 'student_courses');
-    }*/
+    }
 }

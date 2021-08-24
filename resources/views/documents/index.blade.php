@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('page-header')
-    @if(Request::segment(1) == 'list')
+    @if(Request::route()->named('documentos.index'))
         @php($ruta = route('documentos.data', $id))
         @php($ruta_redirect = 'documentos.index')
         <div class="row">
@@ -158,7 +158,7 @@
         <div class="panel-heading">
             <h4 class="panel-title">Documentos del sistema</h4>
             <div class="panel-heading-btn">
-                @can('documentos.create')<a href="@if(Request::segment(1) == 'list') {{ route('documentos.create', $id) }} @else {{ route('documentos_estudiantes.create', $id) }} @endif" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar documento</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
+                @can('documentos.create')<a href="@if(Request::route()->named('documentos.index')) {{ route('documentos.create', $id) }} @else {{ route('documentos_estudiantes.create', $id) }} @endif" class="btn btn-indigo btn-sm"><i class="fas fa-user-plus"></i>&nbsp; Agregar documento</a>&nbsp;&nbsp;&nbsp;&nbsp;@endcan
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-default" data-click="panel-expand"><i class="fa fa-expand"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-success" data-click="panel-reload"><i class="fa fa-redo"></i></a>
                 <a href="javascript:;" class="btn btn-xs btn-icon btn-circle btn-warning" data-click="panel-collapse"><i class="fa fa-minus"></i></a>

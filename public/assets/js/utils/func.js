@@ -9,6 +9,19 @@ function valIsEmpty(value, extra = '') {
 }
 
 /**
+ * Despliega modal de alerta/mensaje
+ *
+ * @param label
+ * @param message
+ */
+ function showAlertify(message = "", label = "") {
+    alertify.alert().setting({
+        'label': label || 'Aceptar',
+        'message': message || 'Error interno.'
+    }).show();
+}
+
+/**
  * Devolver Fecha con formato 2 caracteres
  * @param {type} $mounth
  */

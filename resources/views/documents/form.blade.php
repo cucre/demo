@@ -33,18 +33,7 @@
             </div>
         </div>
         <div class="panel-body">
-            @php
-                if (Request::segment(1) == 'list') {
-                    $identificador = 'instructor_id';
-                    $ruta = $action == 'create' ? route('documentos.store') : route('documentos.update', $documento->id);
-                    $ruta_redirect = 'documentos.index';
-                } else {
-                    $identificador = 'student_id';
-                    $ruta = $action == 'create' ? route('documentos_estudiantes.documentos.store') : route('documentos_estudiantes.documentos.update', $documento->id);
-                    $ruta_redirect = 'documentos_estudiantes.index';
-                }
-            @endphp
-            <form action="{{ ($action == 'create') ? $ruta : $ruta }}" method="post" enctype="multipart/form-data" id="myform">
+            <form action="{{ ($action == 'create') ? $ruta_create : $ruta_edit }}" method="post" enctype="multipart/form-data" id="myform">
                 <input class="form-control" type="hidden" id="{{ $identificador }}" name="{{ $identificador }}" value="{{ old('id', $id ?? "") }}">
                 <input class="form-control" type="hidden" id="id" name="id" value="{{ old('id', $id ?? "") }}">
                 <input class="form-control" type="hidden" id="ruta_redirect" name="ruta_redirect" value="{{ $ruta_redirect }}">
@@ -86,7 +75,7 @@
                         <button class="btn btn-primary">
                             <i class="fas fa-check-circle"></i> {{ $action == 'create' ? 'Registrar' : 'Actualizar' }}
                         </button>
-                        <a href="@if(Request::segment(1) == 'list') {{ route('documentos.index', $id) }} @else {{ route('documentos_estudiantes.index', $id) }} @endif" class="btn btn-warning">
+                        <a href="{{ $ruta_return }}" class="btn btn-warning">
                             <i class="fas fa-arrow-alt-circle-right fa-rotate-180"></i> Regresar
                         </a>
                     </div>
