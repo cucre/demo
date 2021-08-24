@@ -12,9 +12,11 @@
 @endpush
 
 @section('page-header')
-    @php($carbon = new \Carbon\Carbon())
-    @php($date = $carbon->now()->formatLocalized('%A %d %B %Y'))
-    <small>{{ $date ?? "" }}</small>
+    @php
+        $carbon_date = new \Carbon\Carbon();
+        $carbon_date = $carbon_date->now()->formatLocalized("%A %d %B %Y");
+    @endphp   
+    <small>{{ $carbon_date ?? "" }}</small>
 @endsection
 
 @section('content')

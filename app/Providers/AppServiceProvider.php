@@ -38,9 +38,9 @@ class AppServiceProvider extends ServiceProvider {
             return $query->count() == 0;
         });
 
-        Carbon::setLocale('es');
         Carbon::setUTF8(true);
-        setlocale(LC_TIME, 'es_ES');
+        Carbon::setLocale(config('app.locale'));
+        setlocale(LC_TIME, config('app.locale'));
         Schema::defaultStringLength(191);
     }
 }

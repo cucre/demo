@@ -46,9 +46,9 @@
                 autoclose: true,
             });
 
-            $(`#myform`).find(`input[name='name']`).classMaxCharacters(255);
-            $(`#myform`).find(`input[name='paterno']`).classMaxCharacters(255);
-            $(`#myform`).find(`input[name='materno']`).classMaxCharacters(255);
+            $(`#myform`).find(`input[name='name']`).classMaxCharacters(255).classOnlyAlphabetic(true, '', true);
+            $(`#myform`).find(`input[name='paterno']`).classMaxCharacters(255).classOnlyAlphabetic(true, '', true);
+            $(`#myform`).find(`input[name='materno']`).classMaxCharacters(255).classOnlyAlphabetic(true, '', true);
             $(`#myform`).find(`input[name='cuip']`).classMaxCharacters(20);
             $(`#myform`).find(`input[name='curp']`).classMaxCharacters(18).allToUpperCase();
             $(`#myform`).find(`input[name='birth_date']`).classOnlyIntegers('/');
