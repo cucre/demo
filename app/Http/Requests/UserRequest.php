@@ -20,7 +20,7 @@ class UserRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        $this->email = mb_strtoupper($this->email);
+        $this->email = mb_strtoupper($this->email, 'UTF-8');
         $ignore = '';
 
         if($this->isMethod('put')) {

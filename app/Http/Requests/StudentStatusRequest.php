@@ -20,7 +20,7 @@ class StudentStatusRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        $this->name = mb_strtoupper($this->name);
+        $this->name = mb_strtoupper($this->name, 'UTF-8');
         $ignore = '';
 
         if($this->isMethod('put')) {

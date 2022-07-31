@@ -26,7 +26,7 @@ class StudentCourseRequest extends FormRequest {
                 'required',
                 Rule::unique('student_courses')->where(function ($query) {
                     return $query->where('student_id', $this->student_id)
-                        ->where('course_id', $this->course_id);
+                                 ->where('course_id', $this->course_id);
                 })
             ],
         ];

@@ -20,9 +20,9 @@ class InstructorRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        $this->email = mb_strtoupper($this->email);
-        $this->curp = mb_strtoupper($this->curp);
-        $this->cuip = mb_strtoupper($this->cuip);
+        $this->email = mb_strtoupper($this->email, 'UTF-8');
+        $this->curp = mb_strtoupper($this->curp, 'UTF-8');
+        $this->cuip = mb_strtoupper($this->cuip, 'UTF-8');
         $ignore = '';
         $ignore_curp = '';
         $ignore_cuip = '';

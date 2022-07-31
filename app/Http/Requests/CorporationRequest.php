@@ -20,7 +20,7 @@ class CorporationRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        $this->corporation = mb_strtoupper($this->corporation);
+        $this->corporation = mb_strtoupper($this->corporation, 'UTF-8');
         $ignore = '';
 
         if($this->isMethod('put')) {
