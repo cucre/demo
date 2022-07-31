@@ -20,7 +20,7 @@ class SubjectRequest extends FormRequest {
      * @return array
      */
     public function rules() {
-        $this->subject = mb_strtoupper($this->subject);
+        $this->subject = mb_strtoupper($this->subject, 'UTF-8');
         $ignore = '';
 
         if($this->isMethod('put')) {
